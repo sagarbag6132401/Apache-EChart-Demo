@@ -22,9 +22,10 @@
   <div class="graph-control-container">
     <tf-graph id="GraphControl"></tf-graph>
     <div>
-      <h2>
+    <div>
+      <h4>
         Select Traces Type
-      </h2>
+      </h4>
       <input type="radio" id="line" name="series_type" value="line">
       <label for="line">Line</label><br>
 
@@ -40,6 +41,70 @@
       <input type="radio" id="scatterWithErrorBar" name="series_type" value="scatterWithErrorBar">
       <label for="scatterWithErrorBar">Scatter With Error Bar</label>
     </div>
+    <div>
+      <h4>
+        Select Marker Type
+      </h4>
+      <input type="radio" id="cross" name="marker_type" value="crossMarkerType">
+      <label for="crossMarkerType">Cross</label>
+      <input type="radio" id="ellipse" name="marker_type" value="ellipseMarkerType">
+      <label for="ellipseMarkerType">Ellipse</label>
+      <input type="radio" id="square" name="marker_type" value="squareMarkerType">
+      <label for="squareMarkerType">Square</label>
+      <input type="radio" id="triangle" name="marker_type" value="triangleMarkerType">
+      <label for="triangleMarkerType">Triangle</label>
+      <input type="radio" id="none" name="marker_type" value="noneMarkerType">
+      <label for="noneMarkerType">None</label>
+    </div>
+    <div>
+      <h4>
+        Select Zoom Type
+      </h4>
+      <input type="radio" id="axisDrag" name="zoom_type" value="axisDragZoom">
+      <label for="axisDragZoom">Axis drag zoom</label>
+      <input type="radio" id="dragToZoom" name="zoom_type" value="dragToZoom">
+      <label for="dragToZoom">Drag to zoom</label>
+      <input type="radio" id="mouseWheelUpDown" name="zoom_type" value="mouseWheelUpDown">
+      <label for="mouseWheelUpDown">Mouse wheel up down</label>
+    </div>
+    <div>
+      <h4>
+        Select Axis Type
+      </h4>
+      <input type="radio" id="xAxis" name="axis_type" value="xAxis">
+      <label for="xAxis">X-Axis</label>
+      <input type="checkbox" id="xLinear" name="linear" value="Linear">
+      <label for="Linear"> Linear </label>
+      <input type="checkbox" id="xLogarithmic" name="logarithmic" value="Logarithmic">
+      <label for="Logarithmic"> Logarithmic</label>
+      <input type="radio" id="yAxis" name="axis_type" value="yAxis">
+      <label for="yAxis">Y-Axis</label>
+      <input type="checkbox" id="yLinear" name="linear" value="Linear">
+      <label for="Linear"> Linear </label>
+      <input type="checkbox" id="yLogarithmic" name="logarithmic" value="Logarithmic">
+      <label for="Logarithmic"> Logarithmic</label>
+    </div>
+    <div>
+      <h4>
+        Select Line Type
+      </h4>
+      <input type="radio" id="Dot" name="line_type" value="dotLineType">
+      <label for="dotLineType">Dot</label>
+      <input type="radio" id="Dash" name="line_type" value="dashLineType">
+      <label for="dashLineType">Dash</label>
+      <input type="radio" id="DashDot" name="line_type" value="dashDotLineType">
+      <label for="dashDotLineType">DashDot</label>
+      <input type="radio" id="DashDotDot" name="line_type" value="dashDotDotLineType">
+      <label for="dashDotDotLineType">DashDotDot</label>
+      <input type="radio" id="LongDash" name="line_type" value="longDashLineType">
+      <label for="longDashLineType">LongDash</label>
+      <input type="radio" id="LongDashDot" name="line_type" value="longDashDotLineType">
+      <label for="longDashDotLineType">LongDashDot</label>
+      <input type="radio" id="LongDashDotDot" name="line_type" value="longDashDotDotLineType">
+      <label for="longDashDotDotLineType">LongDashDotDot</label>
+    </div>
+  </div>
   </div>
 </body>
+
 </html>
