@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+  <title>Stencil Component Starter</title>
+  <script type="module" src="/build/graph-control-demo-application.esm.js"></script>
+  <script type="module" src="/packages/js/graphControl.js"></script>
+  <style>
+    .graph-control-container {
+      display: flex;
+    }
+
+    .graph-control-container #GrpahControl {
+      flex: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="graph-control-container">
+    <tf-graph id="GraphControl"></tf-graph>
+    <div>
+      <h2>
+        Select Traces Type
+      </h2>
+      <input type="radio" id="line" name="series_type" value="line">
+      <label for="line">Line</label><br>
+
+      <input type="radio" id="scatter" name="series_type" value="scatter">
+      <label for="scatter">Scatter</label><br>
+
+      <input type="radio" id="bar" name="series_type" value="bar">
+      <label for="bar">Bar</label><br>
+
+      <input type="radio" id="lineWithErrorBar" name="series_type" value="lineWithErrorBar">
+      <label for="lineWithErrorBar">Line With Error Bar</label><br>
+
+      <input type="radio" id="scatterWithErrorBar" name="series_type" value="scatterWithErrorBar">
+      <label for="scatterWithErrorBar">Scatter With Error Bar</label>
+    </div>
+  </div>
+</body>
+</html>
