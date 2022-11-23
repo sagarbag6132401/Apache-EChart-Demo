@@ -95,6 +95,7 @@ export class TfGraphDatasource {
 
   @Watch('traceType')
   watchTracesType() {
+    console.log('inside traceType watcher:>>', this.traceType);
     this.updateTrace();
   }
 

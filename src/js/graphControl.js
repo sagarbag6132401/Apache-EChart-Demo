@@ -21,6 +21,13 @@ function updateTraceType(series_type) {
 
 /*---------Customization section------------*/
 /*----------DOM references------------*/
+/*---------Trace type dom refs-----------*/
+const lineRadio = document.querySelector('#line');
+const scatterRadio = document.querySelector('#scatter');
+const barRadio = document.querySelector('#bar');
+const lineWithErrorBarRadio = document.querySelector('#lineWithErrorBar');
+const scatterWithErrorBarRadio = document.querySelector('#scatterWithErrorBar');
+/*---------Trace type dom refs-----------*/
 const xAxisRadio = document.querySelector('#xAxis');
 console.log('🚀 ~ file: graphControl.js ~ line 25 ~ xAxisRadio', xAxisRadio);
 const yAxisRadio = document.querySelector('#yAxis');
@@ -130,6 +137,13 @@ const customiseGraphProperties = (property, value) => {
 };
 /*---------Functions-------------*/
 /*-----------Event Listener Register-------------*/
+/*-----------Trace type Event Listener------------*/
+lineRadio.addEventListener('click', () => updateTraceType('line'));
+scatterRadio.addEventListener('click', () => updateTraceType('scatter'));
+barRadio.addEventListener('click', () => updateTraceType('bar'));
+lineWithErrorBarRadio.addEventListener('click', () => updateTraceType('lineWithErrorBar'));
+scatterWithErrorBarRadio.addEventListener('click', () => updateTraceType('scatterWithErrorBar'));
+/*-----------Trace type Event Listener------------*/
 xAxisRadio.addEventListener('click', getSelectedAxis);
 yAxisRadio.addEventListener('click', getSelectedAxis);
 xLinearAxisTypeCheckbox.addEventListener('click', updateAxisType);
