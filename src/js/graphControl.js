@@ -12,12 +12,6 @@ graphControl.yAxisType = 'Logarithmic';
 function updateTraceType(series_type) {
   graphControl.traceType = series_type;
 }
-// window.addEventListener('click', function () {
-//   let series_type = document.querySelector("input[type='radio'][name=series_type]:checked")?.value;
-//   if (traceType.includes(series_type)) {
-//     updateTraceType(series_type);
-//   }
-// });
 
 /*---------Customization section------------*/
 /*----------DOM references------------*/
@@ -28,6 +22,13 @@ const barRadio = document.querySelector('#bar');
 const lineWithErrorBarRadio = document.querySelector('#lineWithErrorBar');
 const scatterWithErrorBarRadio = document.querySelector('#scatterWithErrorBar');
 /*---------Trace type dom refs-----------*/
+/*---------Marker type dom refs-----------*/
+const crossRadio = document.querySelector('#cross');
+const ellipseRadio = document.querySelector('#ellipse');
+const squareRadio = document.querySelector('#square');
+const triangleRadio = document.querySelector('#triangle');
+const noneRadio = document.querySelector('#none');
+/*---------Marker type dom refs-----------*/
 const xAxisRadio = document.querySelector('#xAxis');
 console.log('🚀 ~ file: graphControl.js ~ line 25 ~ xAxisRadio', xAxisRadio);
 const yAxisRadio = document.querySelector('#yAxis');
@@ -129,6 +130,10 @@ const updateLineType = () => {
   }
 };
 
+const updateMarkerType = marker_type => {
+  graphControl.markerType = marker_type;
+};
+
 const customiseGraphProperties = (property, value) => {
   console.log('🚀 ~ file: graphControl.js ~ line 89 ~ customiseGraphProperties ~ property, value', property, value);
   if (graphControl.hasOwnProperty(property)) {
@@ -144,6 +149,13 @@ barRadio.addEventListener('click', () => updateTraceType('bar'));
 lineWithErrorBarRadio.addEventListener('click', () => updateTraceType('lineWithErrorBar'));
 scatterWithErrorBarRadio.addEventListener('click', () => updateTraceType('scatterWithErrorBar'));
 /*-----------Trace type Event Listener------------*/
+/*-----------Marker type Event Listener------------*/
+crossRadio.addEventListener('click', () => updateMarkerType('Cross'));
+ellipseRadio.addEventListener('click', () => updateMarkerType('Ellipse'));
+squareRadio.addEventListener('click', () => updateMarkerType('Square'));
+triangleRadio.addEventListener('click', () => updateMarkerType('Triangle'));
+noneRadio.addEventListener('click', () => updateMarkerType('None'));
+/*-----------Marker type Event Listener------------*/
 xAxisRadio.addEventListener('click', getSelectedAxis);
 yAxisRadio.addEventListener('click', getSelectedAxis);
 xLinearAxisTypeCheckbox.addEventListener('click', updateAxisType);
