@@ -1,45 +1,104 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Stencil Component Starter</title>
+    <script type="module" src="/build/graph-control-demo-application.esm.js"></script>
+    <script type="module" src="/packages/js/graphControl.js"></script>
+    <style>
+      .graph-control-container {
+        display: flex;
+      }
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-  <title>Stencil Component Starter</title>
-  <script type="module" src="/build/graph-control-demo-application.esm.js"></script>
-  <script type="module" src="/packages/js/graphControl.js"></script>
-  <style>
-    .graph-control-container {
-      display: flex;
-    }
-
-    .graph-control-container #GrpahControl {
-      flex: 1;
-    }
-  </style>
-</head>
+      .graph-control-container #GrpahControl {
+        flex: 1;
+      }
+    </style>
+  </head>
 
 <body>
   <div class="graph-control-container">
     <tf-graph-datasource id="GraphControl"></tf-graph-datasource>
+    <div>
     <div>
       <h2>
         Select Traces Type
       </h2>
       <input type="radio" id="line" name="series_type" value="line">
       <label for="line">Line</label><br>
+          <input type="radio" id="scatter" name="series_type" value="scatter" />
+          <label for="scatter">Scatter</label><br />
 
-      <input type="radio" id="scatter" name="series_type" value="scatter">
-      <label for="scatter">Scatter</label><br>
+          <input type="radio" id="bar" name="series_type" value="bar" />
+          <label for="bar">Bar</label><br />
 
-      <input type="radio" id="bar" name="series_type" value="bar">
-      <label for="bar">Bar</label><br>
+          <input type="radio" id="lineWithErrorBar" name="series_type" value="lineWithErrorBar" />
+          <label for="lineWithErrorBar">Line With Error Bar</label><br />
 
-      <input type="radio" id="lineWithErrorBar" name="series_type" value="lineWithErrorBar">
-      <label for="lineWithErrorBar">Line With Error Bar</label><br>
-
-      <input type="radio" id="scatterWithErrorBar" name="series_type" value="scatterWithErrorBar">
-      <label for="scatterWithErrorBar">Scatter With Error Bar</label>
+          <input type="radio" id="scatterWithErrorBar" name="series_type" value="scatterWithErrorBar" />
+          <label for="scatterWithErrorBar">Scatter With Error Bar</label>
+        </div>
+        <div>
+          <h4>Select Marker Type</h4>
+          <input type="radio" id="cross" name="marker_type" value="crossMarkerType" />
+          <label for="crossMarkerType">Cross</label>
+          <input type="radio" id="ellipse" name="marker_type" value="ellipseMarkerType" />
+          <label for="ellipseMarkerType">Ellipse</label>
+          <input type="radio" id="square" name="marker_type" value="squareMarkerType" />
+          <label for="squareMarkerType">Square</label>
+          <input type="radio" id="triangle" name="marker_type" value="triangleMarkerType" />
+          <label for="triangleMarkerType">Triangle</label>
+          <input type="radio" id="none" name="marker_type" value="noneMarkerType" />
+          <label for="noneMarkerType">None</label>
+        </div>
+        <div>
+          <h4>Select Zoom Type</h4>
+          <input type="radio" id="axisDrag" name="zoom_type" value="axisDragZoom" />
+          <label for="axisDragZoom">Axis drag zoom</label>
+          <input type="radio" id="dragToZoom" name="zoom_type" value="dragToZoom" />
+          <label for="dragToZoom">Drag to zoom</label>
+          <input type="radio" id="mouseWheelUpDown" name="zoom_type" value="mouseWheelUpDown" />
+          <label for="mouseWheelUpDown">Mouse wheel up down</label>
+        </div>
+        <div>
+          <h4>Select Axis Type</h4>
+          <input type="radio" id="xAxis" name="axis_type" value="xAxis" />
+          <label for="xAxis">X-Axis</label>
+          <input type="radio" id="yAxis" name="axis_type" value="yAxis" />
+          <label for="yAxis">Y-Axis</label>
+          <span id="xAxisTypeCustomizationContainer" style="display: none">
+            <input type="checkbox" id="xLinear" name="linear" value="Linear" />
+            <label for="Linear"> Linear </label>
+            <input type="checkbox" id="xLogarithmic" name="logarithmic" value="Logarithmic" />
+            <label for="Logarithmic"> Logarithmic</label>
+          </span>
+          <span id="yAxisTypeCustomizationContainer" style="display: none">
+            <input type="checkbox" id="yLinear" name="linear" value="Linear" />
+            <label for="Linear"> Linear </label>
+            <input type="checkbox" id="yLogarithmic" name="logarithmic" value="Logarithmic" />
+            <label for="Logarithmic"> Logarithmic</label>
+          </span>
+        </div>
+        <div>
+          <h4>Select Line Type</h4>
+          <input type="radio" id="Dot" name="line_type" value="dotLineType" />
+          <label for="dotLineType">Dot</label>
+          <input type="radio" id="Dash" name="line_type" value="dashLineType" />
+          <label for="dashLineType">Dash</label>
+          <input type="radio" id="DashDot" name="line_type" value="dashDotLineType" />
+          <label for="dashDotLineType">DashDot</label>
+          <input type="radio" id="DashDotDot" name="line_type" value="dashDotDotLineType" />
+          <label for="dashDotDotLineType">DashDotDot</label>
+          <input type="radio" id="LongDash" name="line_type" value="longDashLineType" />
+          <label for="longDashLineType">LongDash</label>
+          <input type="radio" id="LongDashDot" name="line_type" value="longDashDotLineType" />
+          <label for="longDashDotLineType">LongDashDot</label>
+          <input type="radio" id="LongDashDotDot" name="line_type" value="longDashDotDotLineType" />
+          <label for="longDashDotDotLineType">LongDashDotDot</label>
+        </div>
+      </div>
     </div>
   </div>
-</body>
+  </body>
 </html>
