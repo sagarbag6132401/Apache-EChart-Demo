@@ -44,7 +44,7 @@ export class TfGraph {
         max: { '0.5' | '100' | '16' }, any integer value can be the max value of the axis
         min: { '0.1' | '10' | '8' } any integer value can be the min value of the axis
      */
-    @Prop() xAxis?: echarts.XAXisComponentOption;
+    @Prop() xAxis?: any;
 
     /**
      * yAxis stores the information about all the customized feature of yAxis
@@ -58,7 +58,7 @@ export class TfGraph {
         max: { '0.5' | '100' | '16' }, any integer value can be the max value of the axis
         min: { '0.1' | '10' | '8' } any integer value can be the min value of the axis
      */
-    @Prop() yAxis?: echarts.YAXisComponentOption;
+    @Prop() yAxis?: any;
 
     /**
      * dataZoom stores the information about all the customized feature of zooming in graph control, the minimum required value are given below
@@ -77,7 +77,7 @@ export class TfGraph {
      *    }
      * }
      */
-    @Prop() tooltip?: echarts.TooltipComponentOption;
+    @Prop() tooltip?: any;
 
     /**
      * toolbox stores the information about position of rubberband zooming icon
@@ -178,6 +178,7 @@ export class TfGraph {
      */
     private updateOptions () {
         const options = this.setOptions();
+        console.log("🚀 ~ file: tf-graph.tsx ~ line 192 ~ TfGraph ~ initChart ~ options", options)
         options && this.chart.setOption(options,{notMerge:true});
     }
 
