@@ -223,7 +223,7 @@ export class TfGraph {
         })
     }
 
-    private resetZoom(ev) {
+    private resetZoom() {
         this.chart.dispatchAction({
             type: 'restore'
         });
@@ -272,7 +272,7 @@ export class TfGraph {
     render() {
         return (
             <span
-                onDblClick={(ev)=>this.resetZoom(ev)}
+                onDblClick={()=>this.resetZoom()}
                 ref={this.setRoot}
                 onMouseOver={(ev)=>this.onMouseHover(ev)}
                 class="root"

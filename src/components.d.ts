@@ -52,11 +52,16 @@ export namespace Components {
         "graphTitle"?: any;
         "lineType"?: any;
         "markerType"?: any;
+        "toolbox"?: any;
         "traceType": string;
         "xAxisType"?: any;
         "yAxisType"?: any;
         "zoomType"?: any;
     }
+}
+export interface TfGraphCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLTfGraphElement;
 }
 declare global {
     interface HTMLTfGraphElement extends Components.TfGraph, HTMLStencilElement {
@@ -90,6 +95,21 @@ declare namespace LocalJSX {
           * legend stores the information regarding customizing legend features legend:{  padding: { ['10','10','10','10'] }, to place the legend in some particular position padding can be used in this format [top,right,bottom,left]  }
          */
         "legend"?: echarts.LegendComponentOption;
+        "onChartclick"?: (event: TfGraphCustomEvent<any>) => void;
+        /**
+          * Dispatched when the chart zoom has changed
+         */
+        "onChartdatazoom"?: (event: TfGraphCustomEvent<any>) => void;
+        /**
+          * Dispatched when an element in the chart is double clicked
+         */
+        "onChartdblclick"?: (event: TfGraphCustomEvent<any>) => void;
+        "onChartfinished"?: (event: TfGraphCustomEvent<any>) => void;
+        "onChartrendered"?: (event: TfGraphCustomEvent<any>) => void;
+        /**
+          * Dispatched when the chart selection has changed
+         */
+        "onChartselectchanged"?: (event: TfGraphCustomEvent<any>) => void;
         /**
           * renderer prop used to visualisation mode of graph (canvas is the default value)
          */
@@ -123,6 +143,7 @@ declare namespace LocalJSX {
         "graphTitle"?: any;
         "lineType"?: any;
         "markerType"?: any;
+        "toolbox"?: any;
         "traceType"?: string;
         "xAxisType"?: any;
         "yAxisType"?: any;
