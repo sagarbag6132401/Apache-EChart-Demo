@@ -1,16 +1,18 @@
 let traceType = ['line', 'scatter', 'bar', 'lineWithErrorBar', 'scatterWithErrorBar'];
-
 const graphControl = document.querySelector('#GraphControl');
-// graphControl.graphTitle = {text:"Item Price graph"};
-// graphControl.xAxisType = "Linear";
-graphControl.yAxisType = 'Logarithmic';
-// graphControl.traceType = "line";
-// graphControl.lineType = "DashDotDot";
-// graphControl.markerType = "Ellipse";
-// graphControl.zoomType = "";
-
-function updateTraceType(series_type) {
-  graphControl.traceType = series_type;
+graphControl.toolbox = {
+  orient   : 'vertical',
+  itemSize : 13,
+  top      : 15,
+  right    : -6,
+  feature  : {
+    dataZoom : {
+      icon        : {
+          zoom : 'path://',
+          back : 'path://',
+      },
+  },
+  },
 }
 
 /*---------Customization section------------*/
@@ -29,15 +31,13 @@ const squareRadio = document.querySelector('#square');
 const triangleRadio = document.querySelector('#triangle');
 const noneRadio = document.querySelector('#none');
 /*---------Marker type dom refs-----------*/
-const xAxisRadio = document.querySelector('#xAxis');
-console.log('🚀 ~ file: graphControl.js ~ line 25 ~ xAxisRadio', xAxisRadio);
-const yAxisRadio = document.querySelector('#yAxis');
-const xAxisTypeCustomizationContainer = document.querySelector('#xAxisTypeCustomizationContainer');
-const yAxisTypeCustomizationContainer = document.querySelector('#yAxisTypeCustomizationContainer');
-let xLinearAxisTypeCheckbox = document.querySelector('#xLinear');
-let xLogarithmicAxisTypeCheckbox = document.querySelector('#xLogarithmic');
-let yLinearAxisTypeCheckbox = document.querySelector('#yLinear');
-let yLogarithmicAxisTypeCheckbox = document.querySelector('#yLogarithmic');
+
+/*---------Axis type dom refs-----------*/
+const xLinearAxis = document.querySelector('#xLinear');
+const xLogarithmicAxis = document.querySelector('#xLogarithmic');
+const yLinearAxis = document.querySelector('#yLinear');
+const yLogarithmicAxis = document.querySelector('#yLogarithmic');
+/*---------Axis type dom refs-----------*/
 
 /*----Line type dom refs------*/
 const solidLineRadio = document.querySelector('#Solid');
@@ -51,60 +51,18 @@ const LongDashDotDotLineRadio = document.querySelector('#LongDashDotDot');
 
 /*----Line type dom refs------*/
 /*----------DOM references------------*/
-/*----------State Variables------------*/
-let customisedAxis = '';
-let xAxisType = 'linear';
-let yAxisType = 'linear';
-/*----------State Variables------------*/
 /*---------Functions-------------*/
-const getSelectedAxis = () => {
-  console.log('Inside the getSelectedAxis');
-  // debugger;
-  let selectedAxis = '';
-  // customisedAxis = selectedAxis;
-  // axisTypeCustomizationContainer.style.display = 'block';
-  if (xAxisRadio.checked) {
-    // yAxisTypeCustomizationContainer.style.display = 'none';
-    toggleDisplayForCustomizationContainer(yAxisTypeCustomizationContainer, 'none');
-    selectedAxis = 'xAxis';
-    toggleDisplayForCustomizationContainer(xAxisTypeCustomizationContainer, 'block');
-  } else if (yAxisRadio.checked) {
-    toggleDisplayForCustomizationContainer(xAxisTypeCustomizationContainer, 'none');
-    selectedAxis = 'yAxis';
-    toggleDisplayForCustomizationContainer(yAxisTypeCustomizationContainer, 'block');
-  } else {
-    toggleDisplayForCustomizationContainer(yAxisTypeCustomizationContainer, 'none');
-    toggleDisplayForCustomizationContainer(xAxisTypeCustomizationContainer, 'none');
-  }
-  customisedAxis = selectedAxis;
-  console.log('🚀 ~ file: graphControl.js ~ line 73 ~ getSelectedAxis ~ customisedAxis', customisedAxis);
+const updateTraceType = (series_type) => {
+  graphControl.traceType = series_type;
+}
+
+const updateXaxisType = (axisType) => {
+    graphControl.xAxisType = axisType;
 };
 
-const updateAxisType = () => {
-  debugger;
-  let selectedType = '';
-  if (customisedAxis === 'xAxis') {
-    if (xLinearAxisTypeCheckbox.checked) {
-      xAxisType = 'linear';
-    } else {
-      xAxisType = 'logarithmic';
-    }
-    customiseGraphProperties('xAxisType', xAxisType);
-  } else if (customisedAxis === 'yAxis') {
-    if (yLinearAxisTypeCheckbox.checked) {
-      // yAxisType = 'Linear';
-      // customiseGraphProperties('yAxisType', 'Linear');
-      graphControl.yAxisType = 'Linear';
-    } else {
-      // yAxisType = 'Logarithmic';
-      // customiseGraphProperties('yAxisType', 'Logarithmic');
-      graphControl.yAxisType = 'Logarithmic';
-    }
-
-    // customiseGraphProperties('yAxisType', yAxisType);
-  }
-  // customiseGraphProperties("")
-};
+const updateYaxisType = (axisType) => {
+  graphControl.yAxisType = axisType;
+}
 
 const toggleDisplayForCustomizationContainer = (axis, displayProp) => {
   axis.style.display = displayProp;
@@ -135,7 +93,6 @@ const updateMarkerType = marker_type => {
 };
 
 const customiseGraphProperties = (property, value) => {
-  console.log('🚀 ~ file: graphControl.js ~ line 89 ~ customiseGraphProperties ~ property, value', property, value);
   if (graphControl.hasOwnProperty(property)) {
     graphControl[`${property}`] = value;
   }
@@ -156,12 +113,14 @@ squareRadio.addEventListener('click', () => updateMarkerType('Square'));
 triangleRadio.addEventListener('click', () => updateMarkerType('Triangle'));
 noneRadio.addEventListener('click', () => updateMarkerType('None'));
 /*-----------Marker type Event Listener------------*/
-xAxisRadio.addEventListener('click', getSelectedAxis);
-yAxisRadio.addEventListener('click', getSelectedAxis);
-xLinearAxisTypeCheckbox.addEventListener('click', updateAxisType);
-xLogarithmicAxisTypeCheckbox.addEventListener('click', updateAxisType);
-yLinearAxisTypeCheckbox.addEventListener('click', updateAxisType);
-yLogarithmicAxisTypeCheckbox.addEventListener('click', updateAxisType);
+
+/*-----------Axis type Event Listener------------*/
+xLinearAxis.addEventListener('click', ()=> updateXaxisType('Linear'));
+xLogarithmicAxis.addEventListener('click',()=> updateXaxisType('Logarithmic'));
+yLinearAxis.addEventListener('click',()=> updateYaxisType('Linear'));
+yLogarithmicAxis.addEventListener('click',()=> updateYaxisType('Logarithmic'));
+/*-----------Axis type Event Listener------------*/
+
 /*-----------Line type event Listener-------------*/
 solidLineRadio.addEventListener('click', updateLineType);
 dotLineRadio.addEventListener('click', updateLineType);
