@@ -217,8 +217,7 @@ export class TfGraphDatasource {
         }
     }
 
-    customTraces(params, api) {
-        console.log('🚀 ~ file: tf-graph-datasource.tsx ~ line 138 ~ TfGraphDatasource ~ customTraces ~ params', params);
+    customTraces(_params, api) {
         const xValue = api.value(0);
         const highPoint = api.coord([xValue, api.value(1)]);
         const lowPoint = api.coord([xValue, api.value(2)]);
