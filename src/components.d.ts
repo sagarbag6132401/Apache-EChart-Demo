@@ -5,49 +5,167 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { AxisDataProperties, AxisDataResponseTypes, AxisTick, ContextMenuOptions, DataZoomType, GraphGrid, LegendData, RenderType, TooltipData, TooltipDataTypes, TraceDataTypes, VisualMapData } from "./modules/graphData-types";
+import { SeriesOption, TitleComponentOption, ToolboxComponentOption } from "echarts";
 export namespace Components {
     interface TfGraph {
         /**
+          * additionalContextOptions is used to send the context-menu options from the consumer end
+         */
+        "additionalContextOptions": ContextMenuOptions;
+        /**
           * dataZoom stores the information about all the customized feature of zooming in graph control, the minimum required value are given below {      type: {'inside' | 'slider'} type of zooming feature }
          */
-        "dataZoom"?: echarts.DataZoomComponentOption;
+        "dataZoom"?: Array<DataZoomType>;
         /**
-          * graphTitle prop stores the information of graph main title, the minimum required value are given below {  text: { 'name' } text content for the title of the graph,  top: { 'top' | 'bottom' | 'middle' or 'center' | 'left' | 'right' }, position from the top side of the graph  left: { 'top' | 'bottom' | 'middle' or 'center' | 'left' | 'right' }, position from the left side of the graph  padding: { ['10','10','10','10'] }, any numeric value of paadding from the respective places in this format [top,right,bottom,left]  textStyle: {      fontSize: { '10' }, font size of the graph title in the numeric value format      color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the graph title in different format   } }
+          * Gets the info to open or close the legend on load
          */
-        "graphTitle"?: echarts.TitleComponentOption;
+        "expandLegend": boolean;
         /**
-          * legend stores the information regarding customizing legend features legend:{  padding: { ['10','10','10','10'] }, to place the legend in some particular position padding can be used in this format [top,right,bottom,left]  }
+          * it's stores the information for the height of the graph
          */
-        "legend"?: echarts.LegendComponentOption;
+        "graphHeight"?: number;
         /**
-          * renderer prop used to visualisation mode of graph (canvas is the default value)
+          * graphTitle prop stores the information of graph main title, the minimum required value are given below {  text: { 'name' } text content for the title of the graph,  top: { 'top' | 'bottom' | 'middle' or 'center' | 'left' | 'right' }, position from the top side of the graph  left: { 'top' | 'bottom' | 'middle' or 'center' | 'left' | 'right' }, position from the left side of the graph  padding: { ['10','10','10','10'] }, any numeric value of paadding from the respective places in this format [top,right,bottom,left]  textStyle: {      fontSize: { '10' }, font size of the graph title in the numeric value format      color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the graph title in different format  } }
          */
-        "renderer": 'canvas' | 'svg';
+        "graphTitle"?: TitleComponentOption;
         /**
-          * series stores the information all the traces and their properties {  name: {'NAME OF THE TRACES'}, name of the traces which will be showing into legend data  id: {'SERIES_1'}, id of the series   data: { '[[10, 20],[30, 40]]' | '[[1.5, 2.5],[3.5, 4.5]]'}, data-points for the graph  type: {'line' | 'bar' | 'pie' | 'scatter' | 'bar' ...} type of traces  symbol: { 'circle' | 'rect' | 'roundRect' | 'triangle' | 'diamond' | 'pin' | 'arrow' | 'none'}, types of coordinates symbol  symbolSize: { [3,3] }, size of the coordinates symbol numeric format ['width','height']   lineStyle:{  type: { 'solid' | 'dashed' | 'dotted' }, if the traces type is line then type line should mention here  color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the line traces  width: { 10 | 2 }, set the width of the line in numeric value      }  }
+          * it's stores the information for the width of the graph
          */
-        "series"?: echarts.SeriesOption;
+        "graphWidth"?: number;
+        /**
+          * it's stores the information for the padding from the parent container
+         */
+        "grid"?: Array<GraphGrid>;
+        /**
+          * Gets legend data
+         */
+        "legend"?: LegendData[];
+        /**
+          * renderer prop used to visualisation mode of graph (svg is the default value)
+         */
+        "renderer": RenderType;
+        /**
+          * series stores the information all the traces and their properties {  name: {'NAME OF THE TRACES'}, name of the traces which will be showing into legend data  id: {'SERIES_1'}, id of the series  data: { '[[10, 20],[30, 40]]' | '[[1.5, 2.5],[3.5, 4.5]]'}, data-points for the graph  type: {'line' | 'bar' | 'pie' | 'scatter' | 'bar' ...} type of traces  symbol: { 'circle' | 'rect' | 'roundRect' | 'triangle' | 'diamond' | 'pin' | 'arrow' | 'none'}, types of coordinates symbol  symbolSize: { [3,3] }, size of the coordinates symbol numeric format ['width','height']  lineStyle:{  type: { 'solid' | 'dashed' | 'dotted' }, if the traces type is line then type line should mention here  color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the line traces  width: { 10 | 2 }, set the width of the line in numeric value      }  }
+         */
+        "series"?: Array<SeriesOption>;
         /**
           * theme prop used to set the the background color of the graph whether it will be dark or white (white is default value)
          */
         "theme"?: string | Object;
         /**
-          * toolbox stores the information about position of rubberband zooming icon {     orient: { 'horizontal' | 'vertical'}, sequence of the toolbox icon    top: { 'top' | 'bottom' | 'middle' or 'center' | 'left' | 'right' }, position from the top side of the graph    right: { 'top' | 'bottom' | 'middle' or 'center' | 'left' | 'right' | 20 | 20% }, position from the left side of the graph can be in pixel, percent also    feature:    {      dataZoom:{              icon: {                  zoom: { 'path://' }, to hide zoom icon                  back: { 'path://' }, to hide zoom reset icon                 }            }    }
+          * toolbox stores the information about position of rubberband zooming icon {    orient: { 'horizontal' | 'vertical'}, sequence of the toolbox icon    top: { 'top' | 'bottom' | 'middle' or 'center' | 'left' | 'right' }, position from the top side of the graph    right: { 'top' | 'bottom' | 'middle' or 'center' | 'left' | 'right' | 20 | 20% }, position from the left side of the graph can be in pixel, percent also    feature:    {      dataZoom:{              icon: {                  zoom: { 'path://' }, to hide zoom icon                  back: { 'path://' }, to hide zoom reset icon                 }            }    }
          */
-        "toolbox"?: echarts.ToolboxComponentOption;
+        "toolbox"?: ToolboxComponentOption;
         /**
           * tooltip stores the information about all the customized feature of tooltip, the minimum required value are given below {      axisPointer: {          type: {'cross' | 'line' | 'shadow' | 'none'} types of cross-hair feature    } }
          */
-        "tooltip"?: echarts.TooltipComponentOption;
+        "tooltip"?: TooltipDataTypes;
         /**
-          * xAxis stores the information about all the customized feature of xAxis, the minimum required value are given below  type: {'value' | 'category' | 'time' | 'log'}, type of axis  name: {'TITLE OF THE AXIS'}, title of the axis  nameLocation: { 'start' | 'middle' or 'center' | 'end' }, loaction of the title w.r.t to the axis  nameTextStyle:{      fontSize: {'Numeric Value'}, font size of the axis title      color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the axis name in different format   },  max: { '0.5' | '100' | '16' }, any integer value can be the max value of the axis  min: { '0.1' | '10' | '8' } any integer value can be the min value of the axis
+          * visualMap is a type of properties for visual encoding, which maps the data to visual channels
          */
-        "xAxis"?: echarts.XAXisComponentOption;
+        "visualMap": VisualMapData | null;
         /**
-          * yAxis stores the information about all the customized feature of yAxis  type: {'value' | 'category' | 'time' | 'log'}, type of axis  name: {'TITLE OF THE AXIS'}, title of the axis  nameLocation: { 'start' | 'middle' or 'center' | 'end' }, loaction of the title w.r.t to the axis  nameTextStyle:{      fontSize: {'Numeric Value'}, font size of the axis title      color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the axis name in different format   },  max: { '0.5' | '100' | '16' }, any integer value can be the max value of the axis  min: { '0.1' | '10' | '8' } any integer value can be the min value of the axis
+          * xAxis stores the information about all the customized feature of xAxis, the minimum required value are given below  type: {'value' | 'category' | 'time' | 'log'}, type of axis  name: {'TITLE OF THE AXIS'}, title of the axis  nameLocation: { 'start' | 'middle' or 'center' | 'end' }, loaction of the title w.r.t to the axis  nameTextStyle:{      fontSize: {'Numeric Value'}, font size of the axis title      color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the axis name in different format  },  max: { '0.5' | '100' | '16' }, any integer value can be the max value of the axis  min: { '0.1' | '10' | '8' } any integer value can be the min value of the axis
          */
-        "yAxis"?: echarts.YAXisComponentOption;
+        "xAxis"?: AxisDataProperties;
+        /**
+          * yAxis stores the information about all the customized feature of yAxis  type: {'value' | 'category' | 'time' | 'log'}, type of axis  name: {'TITLE OF THE AXIS'}, title of the axis  nameLocation: { 'start' | 'middle' or 'center' | 'end' }, loaction of the title w.r.t to the axis  nameTextStyle:{      fontSize: {'Numeric Value'}, font size of the axis title      color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the axis name in different format  },  max: { '0.5' | '100' | '16' }, any integer value can be the max value of the axis  min: { '0.1' | '10' | '8' } any integer value can be the min value of the axis
+         */
+        "yAxis"?: Array<AxisDataProperties>;
     }
+    interface TfGraphDatasource {
+        "additionalContextOptions"?: ContextMenuOptions;
+        /**
+          * to get the visibility for axis drag zoom
+         */
+        "axisDragDataZoomShouldShow"?: boolean;
+        /**
+          * gets the chartType data
+         */
+        "chartType"?: string;
+        "dataZoomHeight"?: number | string;
+        /**
+          * to get the orientation for axis drag zoom
+         */
+        "dataZoomOrient"?: string;
+        /**
+          * it's stores the information for the height of the graph
+         */
+        "graphHeight"?: number;
+        /**
+          * graphTitle used to set the graph title text
+         */
+        "graphTitle"?: string;
+        /**
+          * it's stores the information for the width of the graph
+         */
+        "graphWidth"?: number;
+        /**
+          * to set the padding for the graph control w.r.t to the parent container
+         */
+        "grid"?: Array<GraphGrid>;
+        /**
+          * Gets legend data
+         */
+        "legend"?: LegendData[];
+        /**
+          * toolbox is used to pass all the properties related drag to zoom feature
+         */
+        "toolbox"?: ToolboxComponentOption;
+        /**
+          * tooltipDataPoints used to set the customized tooltip message w.r.t to coordinates value
+         */
+        "tooltipDataPoints"?: Array<TooltipData> | undefined;
+        /**
+          * traceData used to set the all the properties for each traces which includes trace type, line type, marker type etc.
+         */
+        "traceData"?: Array<TraceDataTypes>;
+        /**
+          * to get the visualmap data when chart type is heatmap
+         */
+        "visualMapData"?: VisualMapData;
+        /**
+          * it's stores the base value of x-axis data when axis type is logarithmic
+         */
+        "xAxisBase"?: number;
+        /**
+          * to get the x-axis data
+         */
+        "xAxisData"?: Array<string | number>;
+        /**
+          * to get the x-axis tick
+         */
+        "xAxisTick"?: AxisTick;
+        /**
+          * xAxisTitle used to set the x-axis title text
+         */
+        "xAxisTitle"?: string;
+        /**
+          * xAxisType used to set the x-axis type whether it will be 0(linear) or 1(logarithmic)
+         */
+        "xAxisType"?: number;
+        /**
+          * xMax is used to set the x-axis maximum range
+         */
+        "xMax"?: number;
+        /**
+          * xMin is used to set the x-axis minimum range
+         */
+        "xMin"?: number;
+        /**
+          * to get all the data regarding y-axis
+         */
+        "yAxis"?: Array<AxisDataResponseTypes>;
+        /**
+          * it's stores the base value of y-axis data when axis type is logarithmic
+         */
+        "yAxisBase"?: number;
+    }
+}
+export interface TfGraphCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLTfGraphElement;
 }
 declare global {
     interface HTMLTfGraphElement extends Components.TfGraph, HTMLStencilElement {
@@ -56,55 +174,179 @@ declare global {
         prototype: HTMLTfGraphElement;
         new (): HTMLTfGraphElement;
     };
+    interface HTMLTfGraphDatasourceElement extends Components.TfGraphDatasource, HTMLStencilElement {
+    }
+    var HTMLTfGraphDatasourceElement: {
+        prototype: HTMLTfGraphDatasourceElement;
+        new (): HTMLTfGraphDatasourceElement;
+    };
     interface HTMLElementTagNameMap {
         "tf-graph": HTMLTfGraphElement;
+        "tf-graph-datasource": HTMLTfGraphDatasourceElement;
     }
 }
 declare namespace LocalJSX {
     interface TfGraph {
         /**
+          * additionalContextOptions is used to send the context-menu options from the consumer end
+         */
+        "additionalContextOptions"?: ContextMenuOptions;
+        /**
           * dataZoom stores the information about all the customized feature of zooming in graph control, the minimum required value are given below {      type: {'inside' | 'slider'} type of zooming feature }
          */
-        "dataZoom"?: echarts.DataZoomComponentOption;
+        "dataZoom"?: Array<DataZoomType>;
         /**
-          * graphTitle prop stores the information of graph main title, the minimum required value are given below {  text: { 'name' } text content for the title of the graph,  top: { 'top' | 'bottom' | 'middle' or 'center' | 'left' | 'right' }, position from the top side of the graph  left: { 'top' | 'bottom' | 'middle' or 'center' | 'left' | 'right' }, position from the left side of the graph  padding: { ['10','10','10','10'] }, any numeric value of paadding from the respective places in this format [top,right,bottom,left]  textStyle: {      fontSize: { '10' }, font size of the graph title in the numeric value format      color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the graph title in different format   } }
+          * Gets the info to open or close the legend on load
          */
-        "graphTitle"?: echarts.TitleComponentOption;
+        "expandLegend"?: boolean;
         /**
-          * legend stores the information regarding customizing legend features legend:{  padding: { ['10','10','10','10'] }, to place the legend in some particular position padding can be used in this format [top,right,bottom,left]  }
+          * it's stores the information for the height of the graph
          */
-        "legend"?: echarts.LegendComponentOption;
+        "graphHeight"?: number;
         /**
-          * renderer prop used to visualisation mode of graph (canvas is the default value)
+          * graphTitle prop stores the information of graph main title, the minimum required value are given below {  text: { 'name' } text content for the title of the graph,  top: { 'top' | 'bottom' | 'middle' or 'center' | 'left' | 'right' }, position from the top side of the graph  left: { 'top' | 'bottom' | 'middle' or 'center' | 'left' | 'right' }, position from the left side of the graph  padding: { ['10','10','10','10'] }, any numeric value of paadding from the respective places in this format [top,right,bottom,left]  textStyle: {      fontSize: { '10' }, font size of the graph title in the numeric value format      color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the graph title in different format  } }
          */
-        "renderer"?: 'canvas' | 'svg';
+        "graphTitle"?: TitleComponentOption;
         /**
-          * series stores the information all the traces and their properties {  name: {'NAME OF THE TRACES'}, name of the traces which will be showing into legend data  id: {'SERIES_1'}, id of the series   data: { '[[10, 20],[30, 40]]' | '[[1.5, 2.5],[3.5, 4.5]]'}, data-points for the graph  type: {'line' | 'bar' | 'pie' | 'scatter' | 'bar' ...} type of traces  symbol: { 'circle' | 'rect' | 'roundRect' | 'triangle' | 'diamond' | 'pin' | 'arrow' | 'none'}, types of coordinates symbol  symbolSize: { [3,3] }, size of the coordinates symbol numeric format ['width','height']   lineStyle:{  type: { 'solid' | 'dashed' | 'dotted' }, if the traces type is line then type line should mention here  color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the line traces  width: { 10 | 2 }, set the width of the line in numeric value      }  }
+          * it's stores the information for the width of the graph
          */
-        "series"?: echarts.SeriesOption;
+        "graphWidth"?: number;
+        /**
+          * it's stores the information for the padding from the parent container
+         */
+        "grid"?: Array<GraphGrid>;
+        /**
+          * Gets legend data
+         */
+        "legend"?: LegendData[];
+        /**
+          * Emit chartfinished event after rendering the graph
+         */
+        "onChartfinished"?: (event: TfGraphCustomEvent<any>) => void;
+        /**
+          * renderer prop used to visualisation mode of graph (svg is the default value)
+         */
+        "renderer"?: RenderType;
+        /**
+          * series stores the information all the traces and their properties {  name: {'NAME OF THE TRACES'}, name of the traces which will be showing into legend data  id: {'SERIES_1'}, id of the series  data: { '[[10, 20],[30, 40]]' | '[[1.5, 2.5],[3.5, 4.5]]'}, data-points for the graph  type: {'line' | 'bar' | 'pie' | 'scatter' | 'bar' ...} type of traces  symbol: { 'circle' | 'rect' | 'roundRect' | 'triangle' | 'diamond' | 'pin' | 'arrow' | 'none'}, types of coordinates symbol  symbolSize: { [3,3] }, size of the coordinates symbol numeric format ['width','height']  lineStyle:{  type: { 'solid' | 'dashed' | 'dotted' }, if the traces type is line then type line should mention here  color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the line traces  width: { 10 | 2 }, set the width of the line in numeric value      }  }
+         */
+        "series"?: Array<SeriesOption>;
         /**
           * theme prop used to set the the background color of the graph whether it will be dark or white (white is default value)
          */
         "theme"?: string | Object;
         /**
-          * toolbox stores the information about position of rubberband zooming icon {     orient: { 'horizontal' | 'vertical'}, sequence of the toolbox icon    top: { 'top' | 'bottom' | 'middle' or 'center' | 'left' | 'right' }, position from the top side of the graph    right: { 'top' | 'bottom' | 'middle' or 'center' | 'left' | 'right' | 20 | 20% }, position from the left side of the graph can be in pixel, percent also    feature:    {      dataZoom:{              icon: {                  zoom: { 'path://' }, to hide zoom icon                  back: { 'path://' }, to hide zoom reset icon                 }            }    }
+          * toolbox stores the information about position of rubberband zooming icon {    orient: { 'horizontal' | 'vertical'}, sequence of the toolbox icon    top: { 'top' | 'bottom' | 'middle' or 'center' | 'left' | 'right' }, position from the top side of the graph    right: { 'top' | 'bottom' | 'middle' or 'center' | 'left' | 'right' | 20 | 20% }, position from the left side of the graph can be in pixel, percent also    feature:    {      dataZoom:{              icon: {                  zoom: { 'path://' }, to hide zoom icon                  back: { 'path://' }, to hide zoom reset icon                 }            }    }
          */
-        "toolbox"?: echarts.ToolboxComponentOption;
+        "toolbox"?: ToolboxComponentOption;
         /**
           * tooltip stores the information about all the customized feature of tooltip, the minimum required value are given below {      axisPointer: {          type: {'cross' | 'line' | 'shadow' | 'none'} types of cross-hair feature    } }
          */
-        "tooltip"?: echarts.TooltipComponentOption;
+        "tooltip"?: TooltipDataTypes;
         /**
-          * xAxis stores the information about all the customized feature of xAxis, the minimum required value are given below  type: {'value' | 'category' | 'time' | 'log'}, type of axis  name: {'TITLE OF THE AXIS'}, title of the axis  nameLocation: { 'start' | 'middle' or 'center' | 'end' }, loaction of the title w.r.t to the axis  nameTextStyle:{      fontSize: {'Numeric Value'}, font size of the axis title      color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the axis name in different format   },  max: { '0.5' | '100' | '16' }, any integer value can be the max value of the axis  min: { '0.1' | '10' | '8' } any integer value can be the min value of the axis
+          * visualMap is a type of properties for visual encoding, which maps the data to visual channels
          */
-        "xAxis"?: echarts.XAXisComponentOption;
+        "visualMap"?: VisualMapData | null;
         /**
-          * yAxis stores the information about all the customized feature of yAxis  type: {'value' | 'category' | 'time' | 'log'}, type of axis  name: {'TITLE OF THE AXIS'}, title of the axis  nameLocation: { 'start' | 'middle' or 'center' | 'end' }, loaction of the title w.r.t to the axis  nameTextStyle:{      fontSize: {'Numeric Value'}, font size of the axis title      color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the axis name in different format   },  max: { '0.5' | '100' | '16' }, any integer value can be the max value of the axis  min: { '0.1' | '10' | '8' } any integer value can be the min value of the axis
+          * xAxis stores the information about all the customized feature of xAxis, the minimum required value are given below  type: {'value' | 'category' | 'time' | 'log'}, type of axis  name: {'TITLE OF THE AXIS'}, title of the axis  nameLocation: { 'start' | 'middle' or 'center' | 'end' }, loaction of the title w.r.t to the axis  nameTextStyle:{      fontSize: {'Numeric Value'}, font size of the axis title      color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the axis name in different format  },  max: { '0.5' | '100' | '16' }, any integer value can be the max value of the axis  min: { '0.1' | '10' | '8' } any integer value can be the min value of the axis
          */
-        "yAxis"?: echarts.YAXisComponentOption;
+        "xAxis"?: AxisDataProperties;
+        /**
+          * yAxis stores the information about all the customized feature of yAxis  type: {'value' | 'category' | 'time' | 'log'}, type of axis  name: {'TITLE OF THE AXIS'}, title of the axis  nameLocation: { 'start' | 'middle' or 'center' | 'end' }, loaction of the title w.r.t to the axis  nameTextStyle:{      fontSize: {'Numeric Value'}, font size of the axis title      color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the axis name in different format  },  max: { '0.5' | '100' | '16' }, any integer value can be the max value of the axis  min: { '0.1' | '10' | '8' } any integer value can be the min value of the axis
+         */
+        "yAxis"?: Array<AxisDataProperties>;
+    }
+    interface TfGraphDatasource {
+        "additionalContextOptions"?: ContextMenuOptions;
+        /**
+          * to get the visibility for axis drag zoom
+         */
+        "axisDragDataZoomShouldShow"?: boolean;
+        /**
+          * gets the chartType data
+         */
+        "chartType"?: string;
+        "dataZoomHeight"?: number | string;
+        /**
+          * to get the orientation for axis drag zoom
+         */
+        "dataZoomOrient"?: string;
+        /**
+          * it's stores the information for the height of the graph
+         */
+        "graphHeight"?: number;
+        /**
+          * graphTitle used to set the graph title text
+         */
+        "graphTitle"?: string;
+        /**
+          * it's stores the information for the width of the graph
+         */
+        "graphWidth"?: number;
+        /**
+          * to set the padding for the graph control w.r.t to the parent container
+         */
+        "grid"?: Array<GraphGrid>;
+        /**
+          * Gets legend data
+         */
+        "legend"?: LegendData[];
+        /**
+          * toolbox is used to pass all the properties related drag to zoom feature
+         */
+        "toolbox"?: ToolboxComponentOption;
+        /**
+          * tooltipDataPoints used to set the customized tooltip message w.r.t to coordinates value
+         */
+        "tooltipDataPoints"?: Array<TooltipData> | undefined;
+        /**
+          * traceData used to set the all the properties for each traces which includes trace type, line type, marker type etc.
+         */
+        "traceData"?: Array<TraceDataTypes>;
+        /**
+          * to get the visualmap data when chart type is heatmap
+         */
+        "visualMapData"?: VisualMapData;
+        /**
+          * it's stores the base value of x-axis data when axis type is logarithmic
+         */
+        "xAxisBase"?: number;
+        /**
+          * to get the x-axis data
+         */
+        "xAxisData"?: Array<string | number>;
+        /**
+          * to get the x-axis tick
+         */
+        "xAxisTick"?: AxisTick;
+        /**
+          * xAxisTitle used to set the x-axis title text
+         */
+        "xAxisTitle"?: string;
+        /**
+          * xAxisType used to set the x-axis type whether it will be 0(linear) or 1(logarithmic)
+         */
+        "xAxisType"?: number;
+        /**
+          * xMax is used to set the x-axis maximum range
+         */
+        "xMax"?: number;
+        /**
+          * xMin is used to set the x-axis minimum range
+         */
+        "xMin"?: number;
+        /**
+          * to get all the data regarding y-axis
+         */
+        "yAxis"?: Array<AxisDataResponseTypes>;
+        /**
+          * it's stores the base value of y-axis data when axis type is logarithmic
+         */
+        "yAxisBase"?: number;
     }
     interface IntrinsicElements {
         "tf-graph": TfGraph;
+        "tf-graph-datasource": TfGraphDatasource;
     }
 }
 export { LocalJSX as JSX };
@@ -112,6 +354,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "tf-graph": LocalJSX.TfGraph & JSXBase.HTMLAttributes<HTMLTfGraphElement>;
+            "tf-graph-datasource": LocalJSX.TfGraphDatasource & JSXBase.HTMLAttributes<HTMLTfGraphDatasourceElement>;
         }
     }
 }
