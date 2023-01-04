@@ -38,16 +38,30 @@ export namespace Components {
         /**
           * tooltip stores the information about all the customized feature of tooltip, the minimum required value are given below {      axisPointer: {          type: {'cross' | 'line' | 'shadow' | 'none'} types of cross-hair feature    } }
          */
-        "tooltip"?: echarts.TooltipComponentOption;
+        "tooltip"?: any;
         /**
           * xAxis stores the information about all the customized feature of xAxis, the minimum required value are given below  type: {'value' | 'category' | 'time' | 'log'}, type of axis  name: {'TITLE OF THE AXIS'}, title of the axis  nameLocation: { 'start' | 'middle' or 'center' | 'end' }, loaction of the title w.r.t to the axis  nameTextStyle:{      fontSize: {'Numeric Value'}, font size of the axis title      color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the axis name in different format   },  max: { '0.5' | '100' | '16' }, any integer value can be the max value of the axis  min: { '0.1' | '10' | '8' } any integer value can be the min value of the axis
          */
-        "xAxis"?: echarts.XAXisComponentOption;
+        "xAxis"?: any;
         /**
           * yAxis stores the information about all the customized feature of yAxis  type: {'value' | 'category' | 'time' | 'log'}, type of axis  name: {'TITLE OF THE AXIS'}, title of the axis  nameLocation: { 'start' | 'middle' or 'center' | 'end' }, loaction of the title w.r.t to the axis  nameTextStyle:{      fontSize: {'Numeric Value'}, font size of the axis title      color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the axis name in different format   },  max: { '0.5' | '100' | '16' }, any integer value can be the max value of the axis  min: { '0.1' | '10' | '8' } any integer value can be the min value of the axis
          */
-        "yAxis"?: echarts.YAXisComponentOption;
+        "yAxis"?: any;
     }
+    interface TfGraphDatasource {
+        "graphTitle"?: any;
+        "lineType"?: any;
+        "markerType"?: any;
+        "toolbox"?: any;
+        "traceType": string;
+        "xAxisType"?: any;
+        "yAxisType"?: any;
+        "zoomType"?: any;
+    }
+}
+export interface TfGraphCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLTfGraphElement;
 }
 declare global {
     interface HTMLTfGraphElement extends Components.TfGraph, HTMLStencilElement {
@@ -56,8 +70,15 @@ declare global {
         prototype: HTMLTfGraphElement;
         new (): HTMLTfGraphElement;
     };
+    interface HTMLTfGraphDatasourceElement extends Components.TfGraphDatasource, HTMLStencilElement {
+    }
+    var HTMLTfGraphDatasourceElement: {
+        prototype: HTMLTfGraphDatasourceElement;
+        new (): HTMLTfGraphDatasourceElement;
+    };
     interface HTMLElementTagNameMap {
         "tf-graph": HTMLTfGraphElement;
+        "tf-graph-datasource": HTMLTfGraphDatasourceElement;
     }
 }
 declare namespace LocalJSX {
@@ -74,6 +95,21 @@ declare namespace LocalJSX {
           * legend stores the information regarding customizing legend features legend:{  padding: { ['10','10','10','10'] }, to place the legend in some particular position padding can be used in this format [top,right,bottom,left]  }
          */
         "legend"?: echarts.LegendComponentOption;
+        "onChartclick"?: (event: TfGraphCustomEvent<any>) => void;
+        /**
+          * Dispatched when the chart zoom has changed
+         */
+        "onChartdatazoom"?: (event: TfGraphCustomEvent<any>) => void;
+        /**
+          * Dispatched when an element in the chart is double clicked
+         */
+        "onChartdblclick"?: (event: TfGraphCustomEvent<any>) => void;
+        "onChartfinished"?: (event: TfGraphCustomEvent<any>) => void;
+        "onChartrendered"?: (event: TfGraphCustomEvent<any>) => void;
+        /**
+          * Dispatched when the chart selection has changed
+         */
+        "onChartselectchanged"?: (event: TfGraphCustomEvent<any>) => void;
         /**
           * renderer prop used to visualisation mode of graph (canvas is the default value)
          */
@@ -93,18 +129,29 @@ declare namespace LocalJSX {
         /**
           * tooltip stores the information about all the customized feature of tooltip, the minimum required value are given below {      axisPointer: {          type: {'cross' | 'line' | 'shadow' | 'none'} types of cross-hair feature    } }
          */
-        "tooltip"?: echarts.TooltipComponentOption;
+        "tooltip"?: any;
         /**
           * xAxis stores the information about all the customized feature of xAxis, the minimum required value are given below  type: {'value' | 'category' | 'time' | 'log'}, type of axis  name: {'TITLE OF THE AXIS'}, title of the axis  nameLocation: { 'start' | 'middle' or 'center' | 'end' }, loaction of the title w.r.t to the axis  nameTextStyle:{      fontSize: {'Numeric Value'}, font size of the axis title      color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the axis name in different format   },  max: { '0.5' | '100' | '16' }, any integer value can be the max value of the axis  min: { '0.1' | '10' | '8' } any integer value can be the min value of the axis
          */
-        "xAxis"?: echarts.XAXisComponentOption;
+        "xAxis"?: any;
         /**
           * yAxis stores the information about all the customized feature of yAxis  type: {'value' | 'category' | 'time' | 'log'}, type of axis  name: {'TITLE OF THE AXIS'}, title of the axis  nameLocation: { 'start' | 'middle' or 'center' | 'end' }, loaction of the title w.r.t to the axis  nameTextStyle:{      fontSize: {'Numeric Value'}, font size of the axis title      color: { 'black' | 'rgb(255,255,255)' | '#fff' }, set the color of the axis name in different format   },  max: { '0.5' | '100' | '16' }, any integer value can be the max value of the axis  min: { '0.1' | '10' | '8' } any integer value can be the min value of the axis
          */
-        "yAxis"?: echarts.YAXisComponentOption;
+        "yAxis"?: any;
+    }
+    interface TfGraphDatasource {
+        "graphTitle"?: any;
+        "lineType"?: any;
+        "markerType"?: any;
+        "toolbox"?: any;
+        "traceType"?: string;
+        "xAxisType"?: any;
+        "yAxisType"?: any;
+        "zoomType"?: any;
     }
     interface IntrinsicElements {
         "tf-graph": TfGraph;
+        "tf-graph-datasource": TfGraphDatasource;
     }
 }
 export { LocalJSX as JSX };
@@ -112,6 +159,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "tf-graph": LocalJSX.TfGraph & JSXBase.HTMLAttributes<HTMLTfGraphElement>;
+            "tf-graph-datasource": LocalJSX.TfGraphDatasource & JSXBase.HTMLAttributes<HTMLTfGraphDatasourceElement>;
         }
     }
 }

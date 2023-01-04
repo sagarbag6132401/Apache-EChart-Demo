@@ -1,163 +1,135 @@
-let series_type = 'line';
-let curentSeriesType;
-let traceType = ["line","scatter","bar","lineWithErrorBar","scatterWithErrorBar"];
-let dataPoints = [[5,7],[7,8],[15,10],[20,18],[17,21]]
+let traceType = ['line', 'scatter', 'bar', 'lineWithErrorBar', 'scatterWithErrorBar'];
 const graphControl = document.querySelector('#GraphControl');
-graphControl.dataZoom = [
-  {
-    type: 'inside'
-  }
-]
-graphControl.tooltip = {
-  axisPointer: {
-    type: "cross"
-  }
-}
-graphControl.xAxis = {
-  type: 'value',
-  name: "Item",
-  nameLocation: "middle",
-  nameTextStyle: {
-    fontSize: "10",
-    color: "black",
-    align: "center",
-    verticalAlign: "top",
-    lineHeight: "56"
-  }
-}
-graphControl.yAxis = {
-  type: 'value',
-  name: "Price",
-  nameLocation: "middle",
-  nameTextStyle: {
-    fontSize: "10",
-    color: "black",
-    align: "center",
-    lineHeight: "56",
-
-  }
-}
-
-function customTraces(params, api) {
-  const xValue = api.value(0);
-  const highPoint = api.coord([xValue, api.value(1)]);
-  const lowPoint = api.coord([xValue, api.value(2)]);
-  const halfWidth = api.size([1, 0])[0] * 0.1;
-  const style = api.style({
-    stroke: api.visual('color'),
-    fill: undefined
-  })
-  return {
-    type: 'group',
-    children: [
-      {
-        type: 'line',
-        transition: ['shape'],
-        shape: {
-          x1: highPoint[0] - halfWidth,
-          y1: highPoint[1],
-          x2: highPoint[0] + halfWidth,
-          y2: highPoint[1]
-        },
-        style: style
-      },
-      {
-        type: 'line',
-        transition: ['shape'],
-        shape: {
-          x1: highPoint[0],
-          y1: highPoint[1],
-          x2: lowPoint[0],
-          y2: lowPoint[1]
-        },
-        style: style
-      },
-      {
-        type: 'line',
-        transition: ['shape'],
-        shape: {
-          x1: lowPoint[0] - halfWidth,
-          y1: lowPoint[1],
-          x2: lowPoint[0] + halfWidth,
-          y2: lowPoint[1]
-        },
-        style: style
-      }
-    ]
-  };
-}
-
-const updateSeries = () => {
-  let isLineWithErrorBar;
-  let errorData = [];
-  let traceData;
-  for (let i = 0; i < dataPoints.length; i++) {
-    const coord = dataPoints[i];
-    const x = coord[0];
-    const y = coord[1];
-    const errorHigh = y + Math.random();
-    const errorLow = y - Math.random();
-    errorData.push([x, errorHigh, errorLow]);
-  }
-  isLineWithErrorBar = series_type === "lineWithErrorBar" ? true : false;
-  if (series_type === "lineWithErrorBar" || series_type === "scatterWithErrorBar") {
-    traceData = [
-      {
-        type: isLineWithErrorBar ? 'line' : 'scatter',
-        name: 'bar',
-        data: dataPoints,
-        itemStyle: {
-          color: '#77bef7'
-        },
-        smooth: true,
-        symbol: isLineWithErrorBar ? 'none' : 'circle',
-        symbolSize: 10
-      },
-      {
-        type: 'custom',
-        name: 'error',
-        itemStyle: {
-          borderWidth: 1.5,
-          color: "#3655fb"
-        },
-        renderItem: (params, api) => customTraces(params, api),
-        encode: {
-          x: 0,
-          y: [1, 2]
-        },
-        z: 100,
-        data: errorData
-      }
-    ]
-  } else {
-    traceData = [
-      {
-        name: "Series 1",
-        data: dataPoints,
-        type: series_type,
-        lineStyle: {
-          color: "red",
-          // type: "dashed"
-        }
-      }
-    ]
-  }
-  graphControl.series = traceData;
-}
-updateSeries();
 graphControl.toolbox = {
-  orient: 'vertical',
-  itemSize: 13,
-  top: 15,
-  right: -6,
-  feature: {
-    dataZoom: {},
+  orient   : 'vertical',
+  itemSize : 13,
+  top      : 15,
+  right    : -6,
+  feature  : {
+    dataZoom : {
+      icon        : {
+          zoom : 'path://',
+          back : 'path://',
+      },
+  },
   },
 }
-window.addEventListener("click", function () {
-  series_type = document.querySelector("input[type='radio'][name=series_type]:checked")?.value;
-  if (traceType.includes(series_type) && curentSeriesType !== series_type) {
-    updateSeries();
+
+/*---------Customization section------------*/
+/*----------DOM references------------*/
+/*---------Trace type dom refs-----------*/
+const lineRadio = document.querySelector('#line');
+const scatterRadio = document.querySelector('#scatter');
+const barRadio = document.querySelector('#bar');
+const lineWithErrorBarRadio = document.querySelector('#lineWithErrorBar');
+const scatterWithErrorBarRadio = document.querySelector('#scatterWithErrorBar');
+/*---------Trace type dom refs-----------*/
+/*---------Marker type dom refs-----------*/
+const crossRadio = document.querySelector('#cross');
+const ellipseRadio = document.querySelector('#ellipse');
+const squareRadio = document.querySelector('#square');
+const triangleRadio = document.querySelector('#triangle');
+const noneRadio = document.querySelector('#none');
+/*---------Marker type dom refs-----------*/
+
+/*---------Axis type dom refs-----------*/
+const xLinearAxis = document.querySelector('#xLinear');
+const xLogarithmicAxis = document.querySelector('#xLogarithmic');
+const yLinearAxis = document.querySelector('#yLinear');
+const yLogarithmicAxis = document.querySelector('#yLogarithmic');
+/*---------Axis type dom refs-----------*/
+
+/*----Line type dom refs------*/
+const solidLineRadio = document.querySelector('#Solid');
+const dotLineRadio = document.querySelector('#Dot');
+const dashLineRadio = document.querySelector('#Dash');
+const dashDotLineRadio = document.querySelector('#DashDot');
+const dashDotDotLineRadio = document.querySelector('#DashDotDot');
+const LongDashLineRadio = document.querySelector('#LongDash');
+const LongDashDotLineRadio = document.querySelector('#LongDashDot');
+const LongDashDotDotLineRadio = document.querySelector('#LongDashDotDot');
+
+/*----Line type dom refs------*/
+/*----------DOM references------------*/
+/*---------Functions-------------*/
+const updateTraceType = (series_type) => {
+  graphControl.traceType = series_type;
+}
+
+const updateXaxisType = (axisType) => {
+    graphControl.xAxisType = axisType;
+};
+
+const updateYaxisType = (axisType) => {
+  graphControl.yAxisType = axisType;
+}
+
+const toggleDisplayForCustomizationContainer = (axis, displayProp) => {
+  axis.style.display = displayProp;
+};
+
+const updateLineType = () => {
+  if (dotLineRadio.checked) {
+    graphControl.lineType = 'Dot';
+  } else if (solidLineRadio.checked) {
+    graphControl.lineType = 'Solid';
+  } else if (dashLineRadio.checked) {
+    graphControl.lineType = 'Dash';
+  } else if (dashDotLineRadio.checked) {
+    graphControl.lineType = 'DashDot';
+  } else if (dashDotDotLineRadio.checked) {
+    graphControl.lineType = 'DashDotDot';
+  } else if (LongDashLineRadio.checked) {
+    graphControl.lineType = 'LongDash';
+  } else if (LongDashDotLineRadio.checked) {
+    graphControl.lineType = 'LongDashDot';
+  } else if (LongDashDotDotLineRadio.checked) {
+    graphControl.lineType = 'LongDashDotDot';
   }
-  curentSeriesType = series_type;
-});
+};
+
+const updateMarkerType = marker_type => {
+  graphControl.markerType = marker_type;
+};
+
+const customiseGraphProperties = (property, value) => {
+  if (graphControl.hasOwnProperty(property)) {
+    graphControl[`${property}`] = value;
+  }
+};
+/*---------Functions-------------*/
+/*-----------Event Listener Register-------------*/
+/*-----------Trace type Event Listener------------*/
+lineRadio.addEventListener('click', () => updateTraceType('line'));
+scatterRadio.addEventListener('click', () => updateTraceType('scatter'));
+barRadio.addEventListener('click', () => updateTraceType('bar'));
+lineWithErrorBarRadio.addEventListener('click', () => updateTraceType('lineWithErrorBar'));
+scatterWithErrorBarRadio.addEventListener('click', () => updateTraceType('scatterWithErrorBar'));
+/*-----------Trace type Event Listener------------*/
+/*-----------Marker type Event Listener------------*/
+crossRadio.addEventListener('click', () => updateMarkerType('Cross'));
+ellipseRadio.addEventListener('click', () => updateMarkerType('Ellipse'));
+squareRadio.addEventListener('click', () => updateMarkerType('Square'));
+triangleRadio.addEventListener('click', () => updateMarkerType('Triangle'));
+noneRadio.addEventListener('click', () => updateMarkerType('None'));
+/*-----------Marker type Event Listener------------*/
+
+/*-----------Axis type Event Listener------------*/
+xLinearAxis.addEventListener('click', ()=> updateXaxisType('Linear'));
+xLogarithmicAxis.addEventListener('click',()=> updateXaxisType('Logarithmic'));
+yLinearAxis.addEventListener('click',()=> updateYaxisType('Linear'));
+yLogarithmicAxis.addEventListener('click',()=> updateYaxisType('Logarithmic'));
+/*-----------Axis type Event Listener------------*/
+
+/*-----------Line type event Listener-------------*/
+solidLineRadio.addEventListener('click', updateLineType);
+dotLineRadio.addEventListener('click', updateLineType);
+dashLineRadio.addEventListener('click', updateLineType);
+dashDotLineRadio.addEventListener('click', updateLineType);
+dashDotDotLineRadio.addEventListener('click', updateLineType);
+LongDashLineRadio.addEventListener('click', updateLineType);
+LongDashDotLineRadio.addEventListener('click', updateLineType);
+LongDashDotDotLineRadio.addEventListener('click', updateLineType);
+/*-----------Line type event Listener-------------*/
+/*-----------Event Listener Register-------------*/
+/*---------Customization section------------*/

@@ -1,4 +1,4 @@
-import { Component, Prop, h, State, Watch } from '@stencil/core';
+import { Component, Prop, h, State, Watch, Event, EventEmitter, Listen } from '@stencil/core';
 import * as echarts from 'echarts';
 @Component({
     tag: 'tf-graph',
@@ -44,7 +44,7 @@ export class TfGraph {
         max: { '0.5' | '100' | '16' }, any integer value can be the max value of the axis
         min: { '0.1' | '10' | '8' } any integer value can be the min value of the axis
      */
-    @Prop() xAxis?: echarts.XAXisComponentOption;
+    @Prop() xAxis?: any;
 
     /**
      * yAxis stores the information about all the customized feature of yAxis
@@ -58,7 +58,7 @@ export class TfGraph {
         max: { '0.5' | '100' | '16' }, any integer value can be the max value of the axis
         min: { '0.1' | '10' | '8' } any integer value can be the min value of the axis
      */
-    @Prop() yAxis?: echarts.YAXisComponentOption;
+    @Prop() yAxis?: any;
 
     /**
      * dataZoom stores the information about all the customized feature of zooming in graph control, the minimum required value are given below
@@ -77,7 +77,7 @@ export class TfGraph {
      *    }
      * }
      */
-    @Prop() tooltip?: echarts.TooltipComponentOption;
+    @Prop() tooltip?: any;
 
     /**
      * toolbox stores the information about position of rubberband zooming icon
@@ -123,6 +123,24 @@ export class TfGraph {
      */
     @Prop() legend?: echarts.LegendComponentOption;
 
+    @Event({ eventName: 'chartclick', cancelable: false }) chartClick: EventEmitter<any>;
+    /**
+     * Dispatched when an element in the chart is double clicked
+     */
+    @Event({ eventName: 'chartdblclick', cancelable: false }) chartDblClick: EventEmitter<any>;
+
+    @Event({ eventName: 'chartrendered', cancelable: false }) chartRendered: EventEmitter<any>;
+    @Event({ eventName: 'chartfinished', cancelable: false }) chartFinished: EventEmitter<any>;
+
+    /**
+     * Dispatched when the chart zoom has changed
+     */
+    @Event({ eventName: 'chartdatazoom', cancelable: false }) chartDataZoom: EventEmitter<any>;
+    /**
+     * Dispatched when the chart selection has changed
+     */
+    @Event({ eventName: 'chartselectchanged', cancelable: false }) chartSelectChanged: EventEmitter<any>;
+
     /**
      * htmlElement state used to store the reference of target element 
      */
@@ -146,13 +164,29 @@ export class TfGraph {
             }
         });
     }
-    
+
+    @Listen('chartfinished')
+    onChartFinished() {
+        this.updateZoomType()
+    }
+
     componentDidLoad() {
         this.resizeObserver.observe(this.htmlElement);
     }
 
     @Watch('series')
     watchSeries() {
+        this.updateOptions();
+    }
+
+    @Watch('xAxis')
+    watchXais(){
+        this.updateOptions();
+    }
+
+    @Watch('yAxis')
+    watchYaxis(){
+        console.log("==>>",this.yAxis)
         this.updateOptions();
     }
 
@@ -176,9 +210,23 @@ export class TfGraph {
     /**
      * to update the options in the runtime
      */
-    private updateOptions () {
+    private updateOptions() {
         const options = this.setOptions();
-        options && this.chart.setOption(options,{notMerge:true});
+        options && this.chart.setOption(options, { notMerge: true });
+    }
+
+    private updateZoomType() {
+        this.chart.dispatchAction({
+            type: 'takeGlobalCursor',
+            key: 'dataZoomSelect',
+            dataZoomSelectActive: true
+        })
+    }
+
+    private resetZoom() {
+        this.chart.dispatchAction({
+            type: 'restore'
+        });
     }
 
     /**
@@ -190,6 +238,20 @@ export class TfGraph {
         })
         const options = this.setOptions();
         options && this.chart.setOption(options);
+        for (const evEntry of Object.entries(this._getEventHandlers())) {
+            this.chart.on(evEntry[0], evEntry[1] as any);
+        }
+    }
+
+    private _getEventHandlers() {
+        return {
+            datazoom: (ev: any) => this.chartDataZoom.emit(ev),
+            click: (ev: any) => this.chartClick.emit(ev),
+            dblclick: (ev: any) => this.chartDblClick.emit(ev),
+            rendered: (ev: any) => this.chartRendered.emit(ev),
+            finished: (ev: any) => this.chartFinished.emit(ev),
+            selectchanged: (ev: any) => this.chartSelectChanged.emit(ev),
+        };
     }
 
     /**
@@ -203,10 +265,16 @@ export class TfGraph {
         }
     };
 
+    private onMouseHover(ev){
+        ev.target.style.cursor = "default";
+    }
+
     render() {
         return (
             <span
+                onDblClick={()=>this.resetZoom()}
                 ref={this.setRoot}
+                onMouseOver={(ev)=>this.onMouseHover(ev)}
                 class="root"
             />
         )
