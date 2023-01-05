@@ -350,7 +350,6 @@ export class TfGraphDatasource {
                 updatedXaxis.push(singleAxisData)
             }
         }
-        console.log("🚀 ~ file: tf-graph-datasource.tsx:355 ~ TfGraphDatasource ~ getYaxisData ~ updatedXaxis", updatedXaxis)
         return updatedXaxis;
     }
 
@@ -457,7 +456,6 @@ export class TfGraphDatasource {
                 }
             }
         }
-        console.log("🚀 ~ file: tf-graph-datasource.tsx:461 ~ TfGraphDatasource ~ getTraceData ~ updatedTraceData", updatedTraceData)
         return updatedTraceData;
     }
 

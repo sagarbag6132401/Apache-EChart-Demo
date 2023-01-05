@@ -351,7 +351,7 @@ export class TfGraph {
      */
     updateOptions(): void {
         const options = this.setOptions();
-        options && this.chart.setOption(options);
+        options && this.chart.setOption(options, { notMerge: true });
     }
 
     /**
@@ -520,7 +520,6 @@ export class TfGraph {
      * @param {MouseEvent} event 
      */
     private showContextMenu(event:any):void{
-        console.log("inside showContextMenu=>");
         this.contextMenuVisibility = true;
         event.preventDefault();
         event.stopPropagation()
@@ -575,7 +574,6 @@ export class TfGraph {
      * @returns {HTMLElement} JSX for the context menu/sub menu
      */
     private generateContextMenu(contextOptions: ContextMenuOptions=this.contextMenuOptions, event: null | {} = null):HTMLElement {
-        console.log("inside generateContextMenu==>>");
       return (
         <div
           ref={el => (event ? 'context_submenu' : (this.contextMenuContainerElement = el as HTMLElement))}

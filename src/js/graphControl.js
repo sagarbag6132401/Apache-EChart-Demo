@@ -1,7 +1,20 @@
-let traceType = ['line', 'scatter', 'bar', 'lineWithErrorBar', 'scatterWithErrorBar'];
-/*---------------------sample graph for graph control start--------------------*/
-const dataPoints = [[5,7],[7,8],[15,10],[20,18],[17,21]]; 
-const getErrorData = () =>{
+/*---------------------Common function start--------------------*/
+/**
+ * @dscription function to update the traceData based upon the user selection
+ * @param traceData holds the traceData before user changes something
+ * @param updatePayload changed area by the user
+ * @returns it will return the updated trace data after changing the user selection
+ */
+const updateTraceData = (traceData, updatePayload) => {
+  let newTraceData = {...traceData, ...updatePayload}
+  return newTraceData;
+}
+
+/**
+ * @description function to generate random errorData
+ * @returns it will return the generated errorData
+ */
+ const getErrorData = () =>{
   let errorData = [];
   for (let i = 0; i < dataPoints.length; i++) {
     const coord = dataPoints[i];
@@ -13,7 +26,11 @@ const getErrorData = () =>{
   }
   return errorData;
 }
-const traceData = {
+/*---------------------Common function end--------------------*/
+
+/*---------------------Passing props for graph control start--------------------*/
+const dataPoints = [[5,7],[7,8],[15,10],[20,18],[17,21]]; 
+let traceData = {
     traceID: "0",
     traceColor: "rgb(8,138,6)",
     traceType: "line",
@@ -26,7 +43,7 @@ const traceData = {
     data: dataPoints,
     errorData: []
   }
-const yAxis = {
+let yAxis = {
   type:0,
   position: 'left',
   nameGap: 40,
@@ -63,7 +80,7 @@ GraphControlDemo.xMax = 25;
 GraphControlDemo.grid = [{}]
 GraphControlDemo.graphWidth = 1000;
 GraphControlDemo.graphHeight = 500;
-/*---------------------sample graph for graph control end--------------------*/
+/*---------------------Passing props for graph control end--------------------*/
 
 /*---------Customization section------------*/
 /*----------DOM references------------*/
@@ -102,55 +119,55 @@ const LongDashDotDotLineRadio = document.querySelector('#LongDashDotDot');
 
 /*----------DOM references------------*/
 /*---------Functions-------------*/
+/**
+ * @description function to update the series type based upon the user selection
+ * @param series_type holds the user's selected series type
+ */
 const updateTraceType = (series_type) => {
   if(series_type === 'LineWithErrorBars' || series_type === 'ScatterWithErrorBars'){
-    GraphControlDemo.traceData = [{...traceData,errorData: getErrorData(), traceType: series_type}]
+  traceData = updateTraceData(traceData,{errorData: getErrorData(), traceType: series_type})
+  GraphControlDemo.traceData = [traceData]
   }else{
-    GraphControlDemo.traceData = [{...traceData, traceType: series_type}]
+  traceData = updateTraceData(traceData,{traceType: series_type})
+  GraphControlDemo.traceData = [traceData]
   }
 }
 
+/**
+ * @description function to update the x-axis type and update the respective props 
+ * @param axisType holds the user's selected axis type
+ */
 const updateXaxisType = (axisType) => {
     GraphControlDemo.xAxisType = axisType;
 };
 
+/**
+ * @description function to update the y-axis type and update the respective props 
+ * @param axisType holds the user's selected axis type
+ */
 const updateYaxisType = (axisType) => {
-  GraphControlDemo.yAxis = [{...yAxis, type: axisType}];
+  yAxis = {...yAxis, type: axisType};
+  GraphControlDemo.yAxis = [yAxis];
 }
 
+/**
+ * @description function to update the marker type and update the respective props 
+ * @param marker_type holds the user's selected marker type
+ */
 const updateMarkerType = marker_type => {
-  GraphControlDemo.traceData = [{...traceData, markerType: marker_type}]
+  traceData = updateTraceData(traceData,{markerType: marker_type})
+  GraphControlDemo.traceData = [traceData];
 };
 
-const toggleDisplayForCustomizationContainer = (axis, displayProp) => {
-  axis.style.display = displayProp;
+/**
+ * @description function to update the line type and update the respective props 
+ * @param lineType holds the user's selected line type
+ */
+const updateLineType = (lineType) => {
+  traceData = updateTraceData(traceData, {lineType: lineType})
+  GraphControlDemo.traceData = [traceData];
 };
 
-const updateLineType = () => {
-  if (dotLineRadio.checked) {
-    GraphControlDemo.traceData = [{...traceData,lineType: 'Dot'}];
-  } else if (solidLineRadio.checked) {
-    GraphControlDemo.traceData = [{...traceData,lineType: 'Solid'}];
-  } else if (dashLineRadio.checked) {
-    GraphControlDemo.traceData = [{...traceData,lineType: 'Dash'}];
-  } else if (dashDotLineRadio.checked) {
-    GraphControlDemo.traceData = [{...traceData,lineType: 'DashDot'}];
-  } else if (dashDotDotLineRadio.checked) {
-    GraphControlDemo.traceData = [{...traceData,lineType: 'DashDotDot'}];
-  } else if (LongDashLineRadio.checked) {
-    GraphControlDemo.traceData = [{...traceData,lineType: 'LongDash'}];
-  } else if (LongDashDotLineRadio.checked) {
-    GraphControlDemo.traceData = [{...traceData,lineType: 'LongDashDot'}];
-  } else if (LongDashDotDotLineRadio.checked) {
-    GraphControlDemo.traceData = [{...traceData,lineType: 'LongDashDotDot'}];
-  }
-};
-
-const customiseGraphProperties = (property, value) => {
-  if (graphControl.hasOwnProperty(property)) {
-    graphControl[`${property}`] = value;
-  }
-};
 /*---------Functions-------------*/
 /*-----------Event Listener Register-------------*/
 /*-----------Trace type Event Listener------------*/
@@ -176,14 +193,14 @@ yLogarithmicAxis.addEventListener('click',()=> updateYaxisType(1));
 /*-----------Axis type Event Listener------------*/
 
 /*-----------Line type event Listener-------------*/
-solidLineRadio.addEventListener('click', updateLineType);
-dotLineRadio.addEventListener('click', updateLineType);
-dashLineRadio.addEventListener('click', updateLineType);
-dashDotLineRadio.addEventListener('click', updateLineType);
-dashDotDotLineRadio.addEventListener('click', updateLineType);
-LongDashLineRadio.addEventListener('click', updateLineType);
-LongDashDotLineRadio.addEventListener('click', updateLineType);
-LongDashDotDotLineRadio.addEventListener('click', updateLineType);
+solidLineRadio.addEventListener('click', ()=>updateLineType('Solid'));
+dotLineRadio.addEventListener('click', ()=>updateLineType('Dot'));
+dashLineRadio.addEventListener('click', ()=>updateLineType('Dash'));
+dashDotLineRadio.addEventListener('click', ()=>updateLineType('DashDot'));
+dashDotDotLineRadio.addEventListener('click', ()=>updateLineType('DashDotDot'));
+LongDashLineRadio.addEventListener('click', ()=>updateLineType('LongDash'));
+LongDashDotLineRadio.addEventListener('click', ()=>updateLineType('LongDashDot'));
+LongDashDotDotLineRadio.addEventListener('click', ()=>updateLineType('LongDashDotDot'));
 /*-----------Line type event Listener-------------*/
 /*-----------Event Listener Register-------------*/
 /*---------Customization section------------*/
