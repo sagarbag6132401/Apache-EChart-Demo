@@ -1,9 +1,19 @@
+/*--------------------Third Party Import---------------------*/
 import { Component, h, Prop } from '@stencil/core';
-import { MarkerType, LineType, InbuiltLineType, InbuiltMarkerType, InbuiltAxisType, TraceType, InbuiltTraceType, EmptyMarker, ChartType, OrientType } from '../../enum/graphControlEnum';
-import { TooltipData, TraceDataTypes, TooltipDataTypes, GraphTitleDataTypes, CustomErrorTrace, LegendData, GraphGrid, AxisTick, VisualMapData, DataZoomType, AxisDataResponseTypes, AxisDataProperties, ContextMenuOptions } from '../../modules/graphData-types'
-import { DashedLineType, CustomMarkerSvgPath, GraphControlFontWeight, GraphControlAxisLabelLocation, CustomTraceShape, VisualMapPosition } from '../../constant/graphControlConstant';
-import { customAxisLabel } from '../../utils/utils';
 import { SeriesOption, ToolboxComponentOption } from 'echarts';
+/*--------------------Third Party Import---------------------*/
+/*--------------------Enum Import---------------------*/
+import { MarkerType, LineType, InbuiltLineType, InbuiltMarkerType, InbuiltAxisType, TraceType, InbuiltTraceType, EmptyMarker, ChartType, OrientType } from '../../enum/graphControlEnum';
+/*--------------------Enum Import---------------------*/
+/*--------------------Interface Import---------------------*/
+import { TooltipData, TraceDataTypes, TooltipDataTypes, GraphTitleDataTypes, CustomErrorTrace, LegendData, GraphGrid, AxisTick, VisualMapData, DataZoomType, AxisDataResponseTypes, AxisDataProperties, ContextMenuOptions } from '../../modules/graphData-types'
+/*--------------------Interface Import---------------------*/
+/*--------------------Constant Import---------------------*/
+import { DashedLineType, CustomMarkerSvgPath, GraphControlFontWeight, GraphControlAxisLabelLocation, CustomTraceShape, VisualMapPosition } from '../../constant/graphControlConstant';
+/*--------------------Constant Import---------------------*/
+/*--------------------Utility Function Import---------------------*/
+import { customAxisLabel } from '../../utils/utils';
+/*--------------------Utility Function Import---------------------*/
 
 @Component({
     tag: 'tf-graph-datasource',

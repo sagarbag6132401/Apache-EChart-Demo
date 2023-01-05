@@ -1,8 +1,14 @@
+/*--------------------Third Party Import---------------------*/
 import { Component, Prop, h, State, Watch, Event, EventEmitter, Listen, Element } from '@stencil/core';
-import { GraphDimension, GraphGrid, LegendData, RenderType, TooltipDataTypes, DataZoomType, VisualMapData, AxisDataProperties, ContextMenuOptions, SubMenuInformation } from '../../modules/graphData-types'
 import * as echarts from 'echarts';
 import { EChartsOption, EChartsType, init, SeriesOption, TitleComponentOption, ToolboxComponentOption} from 'echarts';
+/*--------------------Third Party Import---------------------*/
+/*--------------------Interface Import---------------------*/
+import { GraphDimension, GraphGrid, LegendData, RenderType, TooltipDataTypes, DataZoomType, VisualMapData, AxisDataProperties, ContextMenuOptions, SubMenuInformation } from '../../modules/graphData-types'
+/*--------------------Interface Import---------------------*/
+/*--------------------Enum Import---------------------*/
 import { ZoomType, ExportType } from '../../enum/graphControlEnum';
+/*--------------------Enum Import---------------------*/
 @Component({
     tag: 'tf-graph',
     styleUrl: 'tf-graph.scss',
