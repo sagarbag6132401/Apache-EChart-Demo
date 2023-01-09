@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@stencil/core": "^2.13.0",
+    "@thermo/ux-property-panel": "^1.0.108",
     "echarts": "^5.4.0"
   },
   "devDependencies": {
