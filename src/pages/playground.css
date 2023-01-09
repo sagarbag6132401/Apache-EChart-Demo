@@ -1,0 +1,40 @@
+html,
+body {
+    height: 100vh;
+    width: 100vw;
+    font-family: 'HelveticaNeue', Helvetica, Arial;
+    box-sizing: border-box;
+    background-color: #eeeeee;
+}
+
+.graph-control-container {
+    display: flex;
+}
+
+.graph-control-container #GraphControl {
+    flex: 1;
+}
+
+.control-box {
+    margin: 4rem 0;
+}
+
+.control-box ul {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    list-style-type: none;
+    padding-inline-start: 0;
+}
+
+.control-box li {
+    list-style: none;
+}
+
+.control-box input {
+    margin: 1rem 0;
+}
+
+.control-box label {
+    font-size: 1rem;
+    font-weight: 600;
+}

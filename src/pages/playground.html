@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Graph Control Playground</title>
+    <title>Stencil Component Starter</title>
+    <!-- Load ux-property-panel-->
+    <script type="module" src="/packages/ux-property-panel/dist/property-panel-ui/property-panel-ui.esm.js"></script>
+    <script nomodule="" src="/packages/ux-property-panel/dist/property-panel-ui/ux-property-panel.js"></script>
+    <!-- Load ux-property-panel-->
+    <!-- Load uxlibrary-core-->
+    <script type="module" src="/packages/uxlib-core/dist/thermo-uxlib-core/thermo-uxlib-core.esm.js"></script>
+    <script nomodule="" src="/packages/uxlib-core/dist/thermo-uxlib-core/thermo-uxlib-core.js"></script>
+    <!-- Load uxlibrary-core-->
+    <!-- Load uxlibrary-core-->
+    <!-- load core-komodo -->
+    <script type="module" src="/packages/uxlib-core-komodo/dist/uxlib-core-komodo/uxlib-core-komodo.esm.js"></script>
+    <script nomodule="" src="/packages/uxlib-core-komodo/dist/uxlib-core-komodo/uxlib-core-komodo.js"></script>
+    <!-- load core-komodo -->
+    <script type="module" src="/packages/js/graphControl.js"></script>
+    <link rel="stylesheet" href="playground.css" />
+  </head>
+  <body>
+    <div class="graph-control-container">
+      <tf-graph-datasource id="GraphControlDemo"></tf-graph-datasource>
+      <div>
+        <tf-paper class="control-box">
+          <h3>Select Traces Type</h3>
+          <hr />
+          <ul>
+            <li>
+              <span>
+                <input type="radio" id="line" name="series_type" value="line" />
+                <label for="line">Line</label>
+              </span>
+            </li>
+            <li>
+              <span>
+                <input type="radio" id="scatter" name="series_type" value="scatter" />
+                <label for="scatter">Scatter</label>
+              </span>
+            </li>
+            <li>
+              <span>
+                <input type="radio" id="bar" name="series_type" value="bar" />
+                <label for="bar">Bar</label>
+              </span>
+            </li>
+            <li>
+              <span>
+                <input type="radio" id="lineWithErrorBar" name="series_type" value="lineWithErrorBar" />
+                <label for="lineWithErrorBar">Line With Error Bar</label>
+              </span>
+            </li>
+
+            <li>
+              <span>
+                <input type="radio" id="scatterWithErrorBar" name="series_type" value="scatterWithErrorBar" />
+                <label for="scatterWithErrorBar">Scatter With Error Bar</label>
+              </span>
+            </li>
+          </ul>
+        </tf-paper>
+        <tf-paper>
+          <h3>Select Marker Type</h3>
+          <hr />
+          <input type="radio" id="cross" name="marker_type" value="crossMarkerType" />
+          <label for="crossMarkerType">Cross</label>
+          <input type="radio" id="ellipse" name="marker_type" value="ellipseMarkerType" />
+          <label for="ellipseMarkerType">Ellipse</label>
+          <input type="radio" id="square" name="marker_type" value="squareMarkerType" />
+          <label for="squareMarkerType">Square</label>
+          <input type="radio" id="triangle" name="marker_type" value="triangleMarkerType" />
+          <label for="triangleMarkerType">Triangle</label>
+          <input type="radio" id="none" name="marker_type" value="noneMarkerType" />
+          <label for="noneMarkerType">None</label>
+        </tf-paper>
+        <div>
+          <h4>Select Line Type</h4>
+          <input type="radio" id="Solid" name="line_type" value="solidLineType" />
+          <label for="solidLineType">Solid</label>
+          <input type="radio" id="Dot" name="line_type" value="dotLineType" />
+          <label for="dotLineType">Dot</label>
+          <input type="radio" id="Dash" name="line_type" value="dashLineType" />
+          <label for="dashLineType">Dash</label>
+          <input type="radio" id="DashDot" name="line_type" value="dashDotLineType" />
+          <label for="dashDotLineType">DashDot</label>
+          <input type="radio" id="DashDotDot" name="line_type" value="dashDotDotLineType" />
+          <label for="dashDotDotLineType">DashDotDot</label>
+          <input type="radio" id="LongDash" name="line_type" value="longDashLineType" />
+          <label for="longDashLineType">LongDash</label>
+          <input type="radio" id="LongDashDot" name="line_type" value="longDashDotLineType" />
+          <label for="longDashDotLineType">LongDashDot</label>
+          <input type="radio" id="LongDashDotDot" name="line_type" value="longDashDotDotLineType" />
+          <label for="longDashDotDotLineType">LongDashDotDot</label>
+        </div>
+        <div>
+          <h4>Select X-Axis Type</h4>
+          <input type="radio" id="xLinear" name="xAxis" value="Linear" />
+          <label for="Linear"> Linear </label>
+          <input type="radio" id="xLogarithmic" name="xAxis" value="Logarithmic" />
+          <label for="Logarithmic"> Logarithmic</label>
+        </div>
+        <div>
+          <h4>Select Y-Axis Type</h4>
+          <input type="radio" id="yLinear" name="yAxis" value="Linear" />
+          <label for="Linear"> Linear </label>
+          <input type="radio" id="yLogarithmic" name="yAxis" value="Logarithmic" />
+          <label for="Logarithmic"> Logarithmic</label>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
