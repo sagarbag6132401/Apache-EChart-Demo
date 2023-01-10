@@ -1,7 +1,6 @@
 html,
 body {
     height: 100vh;
-    width: 100vw;
     font-family: 'HelveticaNeue', Helvetica, Arial;
     box-sizing: border-box;
     background-color: #eeeeee;
@@ -9,10 +8,19 @@ body {
 
 .graph-control-container {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
 }
 
-.graph-control-container #GraphControl {
+#demo-graph-paper {
+    height: 400px;
+}
+
+#demo-graph-paper #GraphControlDemo {
     flex: 1;
+    height: fit-content;
 }
 
 .control-box {

@@ -78,8 +78,8 @@ GraphControlDemo.tooltipDataPoints = [
 GraphControlDemo.yAxis = [yAxis]
 GraphControlDemo.xMax = 25;
 GraphControlDemo.grid = [{}]
-GraphControlDemo.graphWidth = 1000;
-GraphControlDemo.graphHeight = 500;
+GraphControlDemo.graphWidth = (window.innerWidth - 100) / 2;
+GraphControlDemo.graphHeight = window.innerHeight / 2;
 /*---------------------Passing props for graph control end--------------------*/
 
 /*---------Customization section------------*/
