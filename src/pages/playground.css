@@ -9,13 +9,24 @@ body {
 .graph-control-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: flex-start;
     gap: 16px;
 }
 
+.demo-graph-container {
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    background-color: #ffffff;
+}
+
+
 #demo-graph-paper {
-    height: 400px;
+    max-height: 100vh;
+    box-shadow: none !important;
 }
 
 #demo-graph-paper #GraphControlDemo {
@@ -25,6 +36,10 @@ body {
 
 .control-box {
     margin: 4rem 0;
+}
+
+.control-box:first-child {
+    margin-top: 0;
 }
 
 .control-box ul {
@@ -45,4 +60,9 @@ body {
 .control-box label {
     font-size: 1rem;
     font-weight: 600;
+}
+
+.customization-options-container {
+    flex: 1;
+    min-height: 100vh;
 }

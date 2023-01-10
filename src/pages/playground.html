@@ -24,10 +24,24 @@
   </head>
   <body>
     <div class="graph-control-container">
-      <tf-paper id="demo-graph-paper">
-        <tf-graph-datasource id="GraphControlDemo"></tf-graph-datasource>
-      </tf-paper>
-      <div>
+      <span class="demo-graph-container">
+        <tf-paper id="demo-graph-paper" elevation="0">
+          <tf-graph-datasource id="GraphControlDemo"></tf-graph-datasource>
+        </tf-paper>
+      </span>
+      <div class="customization-options-container">
+        <tf-paper class="control-box">
+          <h3>Select Chart Type</h3>
+          <hr />
+          <tf-dropdown placeholder="Select Chart Type">
+            <tf-dropdown-item label="Line Chart"></tf-dropdown-item>
+            <tf-dropdown-item label="Bar Chart"></tf-dropdown-item>
+            <tf-dropdown-item label="Scatter Chart"></tf-dropdown-item>
+            <tf-dropdown-item label="Heatmap Chart"></tf-dropdown-item>
+            <tf-dropdown-item label="Line Chart With Error Bar"></tf-dropdown-item>
+            <tf-dropdown-item label="Scatter Chart With Error Bar"></tf-dropdown-item>
+          </tf-dropdown>
+        </tf-paper>
         <tf-paper class="control-box">
           <h3>Select Traces Type</h3>
           <hr />
@@ -65,7 +79,7 @@
             </li>
           </ul>
         </tf-paper>
-        <tf-paper>
+        <tf-paper class="control-box">
           <h3>Select Marker Type</h3>
           <hr />
           <input type="radio" id="cross" name="marker_type" value="crossMarkerType" />
@@ -79,8 +93,9 @@
           <input type="radio" id="none" name="marker_type" value="noneMarkerType" />
           <label for="noneMarkerType">None</label>
         </tf-paper>
-        <div>
-          <h4>Select Line Type</h4>
+        <tf-paper class="control-box">
+          <h3>Select Line Type</h3>
+          <hr />
           <input type="radio" id="Solid" name="line_type" value="solidLineType" />
           <label for="solidLineType">Solid</label>
           <input type="radio" id="Dot" name="line_type" value="dotLineType" />
@@ -97,14 +112,18 @@
           <label for="longDashDotLineType">LongDashDot</label>
           <input type="radio" id="LongDashDotDot" name="line_type" value="longDashDotDotLineType" />
           <label for="longDashDotDotLineType">LongDashDotDot</label>
-        </div>
-        <div>
-          <h4>Select X-Axis Type</h4>
-          <input type="radio" id="xLinear" name="xAxis" value="Linear" />
-          <label for="Linear"> Linear </label>
-          <input type="radio" id="xLogarithmic" name="xAxis" value="Logarithmic" />
-          <label for="Logarithmic"> Logarithmic</label>
-        </div>
+        </tf-paper>
+        <tf-paper class="" control-box>
+          <h3>Axis Customization</h3>
+          <hr />
+          <div>
+            <label for="axisSelection">Select Axis</label>
+            <select>
+              <option value="xAxis">X-Axis</option>
+              <option value="yAxis">Y-Axis</option>
+            </select>
+          </div>
+        </tf-paper>
         <div>
           <h4>Select Y-Axis Type</h4>
           <input type="radio" id="yLinear" name="yAxis" value="Linear" />
