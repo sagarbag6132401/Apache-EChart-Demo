@@ -509,7 +509,7 @@ export class TfGraphDatasource {
      */
     private getVisualmap(): VisualMapData | null{
         if(this.chartType === ChartType.HEATMAP && this.visualMapData){
-            const updatedVisualmapData = {...this.visualMapData, calculable: true, orient: OrientType.HORIZONTAL, left: VisualMapPosition.CENTER, bottom: "15%",}
+            const updatedVisualmapData = {...this.visualMapData, calculable: true, orient: OrientType.HORIZONTAL, left: VisualMapPosition.CENTER, bottom: "15%"}
             return updatedVisualmapData;
         } else return null
     }
