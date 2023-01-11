@@ -23,6 +23,10 @@ body {
     background-color: #ffffff;
 }
 
+tf-accordion-panel {
+    --tf-accordion-panel-width: 100%;
+}
+
 
 #demo-graph-paper {
     max-height: 100vh;
