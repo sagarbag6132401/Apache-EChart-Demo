@@ -104,14 +104,7 @@ const yLogarithmicAxis = document.querySelector('#yLogarithmic');
 /*---------Axis type dom refs-----------*/
 
 /*----Line type dom refs------*/
-const solidLineRadio = document.querySelector('#Solid');
-const dotLineRadio = document.querySelector('#Dot');
-const dashLineRadio = document.querySelector('#Dash');
-const dashDotLineRadio = document.querySelector('#DashDot');
-const dashDotDotLineRadio = document.querySelector('#DashDotDot');
-const LongDashLineRadio = document.querySelector('#LongDash');
-const LongDashDotLineRadio = document.querySelector('#LongDashDot');
-const LongDashDotDotLineRadio = document.querySelector('#LongDashDotDot');
+const lineTypeDropdown = document.querySelector('#lineTypeDropdown');
 /*----Line type dom refs------*/
 
 /*----------DOM references------------*/
@@ -122,8 +115,7 @@ const handleChartTypeChange = event => {
   if (selectedLineType === 'LineWithErrorBars' || selectedLineType === 'ScatterWithErrorBars') {
     traceData = updateTraceData(traceData, { errorData: getErrorData(), traceType: selectedLineType });
     GraphControlDemo.traceData = [traceData];
-  }
-  if (selectedLineType === 'heatmap') {
+  }else if (selectedLineType === 'heatmap') {
     setHeatmapChartData();
   } else {
     traceData = updateTraceData(traceData, { traceType: selectedLineType });
@@ -162,8 +154,9 @@ const updateMarkerType = event => {
  * @description function to update the line type and update the respective props
  * @param lineType holds the user's selected line type
  */
-const updateLineType = lineType => {
-  traceData = updateTraceData(traceData, { lineType: lineType });
+const updateLineType = event => {
+  let selectedLineType = event.detail.selectedValues[0];
+  traceData = updateTraceData(traceData, { lineType: selectedLineType });
   GraphControlDemo.traceData = [traceData];
 };
 
@@ -184,14 +177,7 @@ yLogarithmicAxis.addEventListener('click', () => updateYaxisType(1));
 /*-----------Axis type Event Listener------------*/
 
 /*-----------Line type event Listener-------------*/
-solidLineRadio.addEventListener('click', () => updateLineType('Solid'));
-dotLineRadio.addEventListener('click', () => updateLineType('Dot'));
-dashLineRadio.addEventListener('click', () => updateLineType('Dash'));
-dashDotLineRadio.addEventListener('click', () => updateLineType('DashDot'));
-dashDotDotLineRadio.addEventListener('click', () => updateLineType('DashDotDot'));
-LongDashLineRadio.addEventListener('click', () => updateLineType('LongDash'));
-LongDashDotLineRadio.addEventListener('click', () => updateLineType('LongDashDot'));
-LongDashDotDotLineRadio.addEventListener('click', () => updateLineType('LongDashDotDot'));
+lineTypeDropdown.addEventListener('selectionchanged', updateLineType);
 /*-----------Line type event Listener-------------*/
 /*-----------Event Listener Register-------------*/
 /*---------Customization section------------*/

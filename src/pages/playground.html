@@ -41,9 +41,7 @@
               <tf-dropdown-item value="ScatterWithErrorBars" label="Scatter Chart With Error Bar"></tf-dropdown-item>
             </tf-dropdown>
           </tf-accordion-panel>
-          <tf-paper class="control-box">
-            <h3>Select Marker Type</h3>
-            <hr />
+            <tf-accordion-panel heading="Select Marker Type" label="panel2">
             <tf-dropdown id="markerTypeDropdown" placeholder="Select Marker Type">
               <tf-dropdown-item value="Cross" label="Cross"></tf-dropdown-item>
               <tf-dropdown-item value="Ellipse" label="Ellipse"></tf-dropdown-item>
@@ -51,27 +49,19 @@
               <tf-dropdown-item value="Triangle" label="Triangle"></tf-dropdown-item>
               <tf-dropdown-item value="none" label="None"></tf-dropdown-item>
             </tf-dropdown>
-          </tf-paper>
-          <tf-paper class="control-box">
-            <h3>Select Line Type</h3>
-            <hr />
-            <input type="radio" id="Solid" name="line_type" value="solidLineType" />
-            <label for="solidLineType">Solid</label>
-            <input type="radio" id="Dot" name="line_type" value="dotLineType" />
-            <label for="dotLineType">Dot</label>
-            <input type="radio" id="Dash" name="line_type" value="dashLineType" />
-            <label for="dashLineType">Dash</label>
-            <input type="radio" id="DashDot" name="line_type" value="dashDotLineType" />
-            <label for="dashDotLineType">DashDot</label>
-            <input type="radio" id="DashDotDot" name="line_type" value="dashDotDotLineType" />
-            <label for="dashDotDotLineType">DashDotDot</label>
-            <input type="radio" id="LongDash" name="line_type" value="longDashLineType" />
-            <label for="longDashLineType">LongDash</label>
-            <input type="radio" id="LongDashDot" name="line_type" value="longDashDotLineType" />
-            <label for="longDashDotLineType">LongDashDot</label>
-            <input type="radio" id="LongDashDotDot" name="line_type" value="longDashDotDotLineType" />
-            <label for="longDashDotDotLineType">LongDashDotDot</label>
-          </tf-paper>
+          </tf-accordion-panel>
+            <tf-accordion-panel heading="Select Line Type" label="panel3">
+              <tf-dropdown id="lineTypeDropdown" placeholder="Select Line Type ">
+                <tf-dropdown-item value="Solid" label="Solid"></tf-dropdown-item>
+                <tf-dropdown-item value="Dot" label="Dot"></tf-dropdown-item>
+                <tf-dropdown-item value="Dash" label="Dash"></tf-dropdown-item>
+                <tf-dropdown-item value="DashDot" label="DashDot"></tf-dropdown-item>
+                <tf-dropdown-item value="DashDotDot" label="DashDotDot"></tf-dropdown-item>
+                <tf-dropdown-item value="LongDash" label="LongDash"></tf-dropdown-item>
+                <tf-dropdown-item value="LongDashDot" label="LongDashDot"></tf-dropdown-item>
+                <tf-dropdown-item value="LongDashDotDot" label="LongDashDotDot"></tf-dropdown-item>
+              </tf-dropdown>
+          </tf-accordion-panel>
           <tf-paper class="" control-box>
             <h3>Axis Customization</h3>
             <hr />
