@@ -6,6 +6,13 @@
  * @returns it will return the updated trace data after changing the user selection
  */
 const updateTraceData = (traceData, updatePayload) => {
+  if(oldSelectedChartType === 'heatmap'){
+    GraphControlDemo.xAxisData = null;
+    GraphControlDemo.xAxisType = 0;
+    GraphControlDemo.yAxis = [yAxis];
+    GraphControlDemo.chartType = '';
+    GraphControlDemo.visualMapData = null;
+  }
   let newTraceData = { ...traceData, ...updatePayload };
   return newTraceData;
 };
@@ -48,6 +55,7 @@ let traceData = {
   markerThickness: 1,
   data: dataPoints,
   errorData: [],
+  dashedLength: 20
 };
 let yAxis = {
   type: 0,
@@ -95,32 +103,38 @@ const chartSelectionDropdown = document.querySelector('#chartTypeDropdown');
 /*---------Marker type dom refs-----------*/
 const markerSelectionDropdown = document.querySelector('#markerTypeDropdown');
 /*---------Marker type dom refs-----------*/
-
+/*----Line type dom refs------*/
+const lineTypeDropdown = document.querySelector('#lineTypeDropdown');
+/*----Line type dom refs------*/
+/*--------Marker inside type dom ref---------*/
+const markerInsideDropdown = document.querySelector('#markerInsideType');
+/*--------Marker inside type dom ref---------*/
 /*---------Axis type dom refs-----------*/
 const xLinearAxis = document.querySelector('#xLinear');
 const xLogarithmicAxis = document.querySelector('#xLogarithmic');
 const yLinearAxis = document.querySelector('#yLinear');
 const yLogarithmicAxis = document.querySelector('#yLogarithmic');
 /*---------Axis type dom refs-----------*/
-
-/*----Line type dom refs------*/
-const lineTypeDropdown = document.querySelector('#lineTypeDropdown');
-/*----Line type dom refs------*/
-
 /*----------DOM references------------*/
 /*---------Functions-------------*/
-
+/**
+ * @description function to change the chart type based upon the user selection 
+ * @param event holds the information regarding newly selected items
+ */
+let oldSelectedChartType = '';
+let newSelectedChartType = '';
 const handleChartTypeChange = event => {
-  const selectedLineType = event.detail.selectedValues[0];
-  if (selectedLineType === 'LineWithErrorBars' || selectedLineType === 'ScatterWithErrorBars') {
-    traceData = updateTraceData(traceData, { errorData: getErrorData(), traceType: selectedLineType });
+  newSelectedChartType = event.detail.selectedValues[0];
+  if (newSelectedChartType === 'LineWithErrorBars' || newSelectedChartType === 'ScatterWithErrorBars') {
+    traceData = updateTraceData(traceData, { errorData: getErrorData(), traceType: newSelectedChartType });
     GraphControlDemo.traceData = [traceData];
-  }else if (selectedLineType === 'heatmap') {
+  }else if (newSelectedChartType === 'heatmap') {
     setHeatmapChartData();
   } else {
-    traceData = updateTraceData(traceData, { traceType: selectedLineType });
+    traceData = updateTraceData(traceData, { traceType: newSelectedChartType });
     GraphControlDemo.traceData = [traceData];
   }
+  oldSelectedChartType = event.detail.selectedValues[0];
 };
 
 /**
@@ -160,6 +174,19 @@ const updateLineType = event => {
   GraphControlDemo.traceData = [traceData];
 };
 
+const updateDashedLength = event =>{
+  intControl.value = event.detail.newValue;
+  let updatedDashedLength = event.detail.newValue;
+  traceData = updateTraceData(traceData,{dashedLength: updatedDashedLength})
+  GraphControlDemo.traceData = [traceData];
+}
+
+const handleMarkerFillness = event =>{
+  let markerFill = event.detail.selectedValues[0];
+  traceData = updateTraceData(traceData, { markerFill: markerFill === 'Fill' ? true : false });
+  GraphControlDemo.traceData = [traceData];
+}
+
 /*---------Functions-------------*/
 /*-----------Event Listener Register-------------*/
 /*-----------Trace type Event Listener------------*/
@@ -168,6 +195,25 @@ chartSelectionDropdown.addEventListener('selectionchanged', handleChartTypeChang
 /*-----------Marker type Event Listener------------*/
 markerSelectionDropdown.addEventListener('selectionchanged', updateMarkerType);
 /*-----------Marker type Event Listener------------*/
+/*-----------Dashed length customization------------*/
+var intControl = document.querySelector('#intControl');
+intControl.options = {
+  format: (value, model) => {
+    return value;
+  },
+  parse: (value, model) => {
+    return value % 2 === 0 ? 0 : 1;
+  },
+};
+intControl.addEventListener('tf-value-change', updateDashedLength);
+/*-----------Dashed length customization------------*/
+/*-----------Marker Inside Customization------------*/
+markerInsideDropdown.addEventListener('selectionchanged', handleMarkerFillness);
+/*-----------Marker Inside Customization------------*/
+
+/*-----------Line type event Listener-------------*/
+lineTypeDropdown.addEventListener('selectionchanged', updateLineType);
+/*-----------Line type event Listener-------------*/
 
 /*-----------Axis type Event Listener------------*/
 xLinearAxis.addEventListener('click', () => updateXaxisType(0));
@@ -176,9 +222,6 @@ yLinearAxis.addEventListener('click', () => updateYaxisType(0));
 yLogarithmicAxis.addEventListener('click', () => updateYaxisType(1));
 /*-----------Axis type Event Listener------------*/
 
-/*-----------Line type event Listener-------------*/
-lineTypeDropdown.addEventListener('selectionchanged', updateLineType);
-/*-----------Line type event Listener-------------*/
 /*-----------Event Listener Register-------------*/
 /*---------Customization section------------*/
 
@@ -473,7 +516,6 @@ GraphControlDemo.traceData = [
     data: data,
   },
 ];
-GraphControlDemo.chartType = 'heatmap';
 GraphControlDemo.graphWidth = 600;
 GraphControlDemo.graphHeight = 400;
 GraphControlDemo.grid = [{ left: '20%', bottom: '35%' }];
