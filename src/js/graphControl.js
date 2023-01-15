@@ -117,14 +117,40 @@ const yLogarithmicAxis = document.querySelector('#yLogarithmic');
 /*---------Axis type dom refs-----------*/
 /*----------DOM references------------*/
 /*---------Functions-------------*/
+/*------------------Global Variable Declaration---------------*/
+let oldSelectedChartType = '';
+let newSelectedChartType = '';
+/*------------------Global Variable Declaration---------------*/
+/**
+ * @description function to hide options which are inapplicable after changing the chart Type
+ */
+const handleHideOptions = () =>{
+  //dom references
+  let lineTypePanel = document.querySelector('#lineTypePanel');
+  let dashedLengthPanel = document.querySelector('#dashedLengthPanel');
+  let allOptionsPanel = document.querySelector('#allOptionsPanel');
+  //hide line type and dashed length customization section
+  if(newSelectedChartType === 'line' || newSelectedChartType === 'LineWithErrorBars'){
+    lineTypePanel.style.display = 'block';
+    dashedLengthPanel.style.display = 'block';
+  } else{
+    lineTypePanel.style.display = 'none';
+    dashedLengthPanel.style.display = 'none';
+  }
+  //hide all the options when chartType is bar or heatmap
+  if(newSelectedChartType === 'heatmap' || newSelectedChartType === 'bar' ){
+    allOptionsPanel.style.display = 'none';
+  }else{
+    allOptionsPanel.style.display = 'block';
+  }
+}
 /**
  * @description function to change the chart type based upon the user selection 
  * @param event holds the information regarding newly selected items
  */
-let oldSelectedChartType = '';
-let newSelectedChartType = '';
 const handleChartTypeChange = event => {
   newSelectedChartType = event.detail.selectedValues[0];
+  handleHideOptions();
   if (newSelectedChartType === 'LineWithErrorBars' || newSelectedChartType === 'ScatterWithErrorBars') {
     traceData = updateTraceData(traceData, { errorData: getErrorData(), traceType: newSelectedChartType });
     GraphControlDemo.traceData = [traceData];
