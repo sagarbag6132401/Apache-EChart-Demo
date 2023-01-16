@@ -1,0 +1,72 @@
+html,
+body {
+    height: 100vh;
+    font-family: 'HelveticaNeue', Helvetica, Arial;
+    box-sizing: border-box;
+    background-color: #eeeeee;
+}
+
+.graph-control-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.demo-graph-container {
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    background-color: #ffffff;
+}
+
+tf-accordion-panel {
+    --tf-accordion-panel-width: 100%;
+}
+
+
+#demo-graph-paper {
+    max-height: 100vh;
+    box-shadow: none !important;
+}
+
+#demo-graph-paper #GraphControlDemo {
+    flex: 1;
+    height: fit-content;
+}
+
+.control-box {
+    margin: 4rem 0;
+}
+
+.control-box:first-child {
+    margin-top: 0;
+}
+
+.control-box ul {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    list-style-type: none;
+    padding-inline-start: 0;
+}
+
+.control-box li {
+    list-style: none;
+}
+
+.control-box input {
+    margin: 1rem 0;
+}
+
+.control-box label {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.customization-options-container {
+    flex: 1;
+    min-height: 100vh;
+}
