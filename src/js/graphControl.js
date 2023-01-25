@@ -549,3 +549,20 @@ GraphControlDemo.axisDragDataZoomShouldShow = false;
 GraphControlDemo.chartType = 'heatmap';
 }
 // // Script for Heatmap graph ----------------- End .......//
+
+/*-------------------SIGNALR INTEGRATION------------------*/
+let url = 'http://localhost:42009/messagehub';
+let connection = new signalR.HubConnectionBuilder().withUrl(url).build();
+async function start() {
+  try {
+      await connection.start();
+      console.log("SignalR Connected.");
+  } catch (err) {
+      console.log("error==>>",err);
+  }
+};
+connection.on('MessageReceived', (message) => {
+  console.log("message",message)
+})
+start();
+/*-------------------SIGNALR INTEGRATION------------------*/
